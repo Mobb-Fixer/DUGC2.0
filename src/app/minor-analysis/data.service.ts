@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -96,4 +97,21 @@ export class DataService {
       withCredentials: true,
     });
   }
+
+
+uploadlist(data: any) {
+  const {
+    sem,
+    filename,
+  } = data;
+  console.log('Making a get request', data);
+  const headers = new HttpHeaders();
+  headers.append('Content-Type', 'multipart/form-data');
+  return this._http.post(`${this.URI}/uploadTheory`, data);
+}
+
+
+getTheoryBySem(sem: number): Observable<any> {
+  return this._http.get(`${this.URI}/getTheoryBySem/${sem}`);
+}
 }
