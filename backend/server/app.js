@@ -227,6 +227,102 @@ app.post("/upload_sheets", (req, res) => {
   });
 });
 
+
+const Theory = require('./models/theories.js'); // Import the User model here
+const xlsx = require('xlsx');
+var uploadi = multer({ storage: storage });
+
+
+app.post("/uploadTheory", async (req, res) => {
+  const { sem, filename } = req.body;
+  console.log("Result => ", req.body);
+
+  if (!filename) {
+    console.log("Filename is not provided in the request.");
+    return res.status(400).json({ error: "Filename is required in the request body." });
+  }
+  let f = filename.split("\\");
+  let file_name = f[f.length - 1];
+
+  let result1 = {};
+  try {
+    result1 = excelToJson({
+      sourceFile: path.join(__dirname, "spreadsheets/new", file_name),
+    });
+    console.log(result1);
+  } catch (err) {
+    console.log("File not found!");
+    return res.status(400).json({ error: "File not found." });
+  }
+
+  let resultSheet1 = result1.Sheet1;
+// Filter out entries where Sl_no is null
+resultSheet1 = resultSheet1.filter(data => isValidNumber(data.A));
+
+// Map the data to the desired format for MongoDB insertion
+let userData = resultSheet1.map((data) => ({
+  Sl_no: parseInt(data.A),
+  USN: data.B,
+  Name: data.C,
+  Sem: isValidNumber(data.D) ? parseInt(data.D) : null,
+  div: data.E,
+  CourseId: data.F,
+  CourseName: data.G,
+  CIE: isValidNumber(data.H) ? parseInt(data.H) : null,
+  Attendance: isValidNumber(data.I) ? parseInt(data.I) : null,
+}));
+
+try {
+  // Insert the transformed data into MongoDB
+  const result2 = await Theory.create(userData);
+  console.log("Data inserted into MongoDB!", result2);
+
+  // You can also write the data to a JSON file if needed
+  fs.writeFile("./data_files/ineligible.json", JSON.stringify(userData), (err) => {
+    if (err) {
+      console.error("Error writing file:", err);
+    } else {
+      console.log("Done writing JSON file!");
+    }
+  });
+
+  res.json({
+    sem,
+    filename: file_name,
+  });
+} catch (err) {
+  console.error("Error inserting data into MongoDB:", err);
+  res.status(500).json({ error: "Internal Server Error" });
+}
+});
+
+function isValidNumber(value) {
+  return !isNaN(value) && value !== null && value !== undefined;
+}
+
+
+
+// Endpoint to retrieve data based on semester
+app.get("/getTheoryBySem/:sem", async (req, res) => {
+  console.log("HIIII in app");
+  try {
+    const sem = parseInt(req.params.sem);
+
+    if (isNaN(sem)) {
+      return res.status(400).json({ error: "Invalid semester value provided." });
+    }
+
+    // Query MongoDB to find data based on the provided semester
+    const theoryData = await Theory.find({ Sem: sem });
+    console.log(theoryData);
+    res.json(theoryData);
+  } catch (err) {
+    console.error("Error retrieving data from MongoDB:", err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
 app.post("/upload_multiple_sheets", (req, res) => {
   let this_year = "2022-23";
   const { academic_year, sem_type, semester, course, exam, filename } =

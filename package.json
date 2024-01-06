@@ -47,7 +47,7 @@
     "ng2-file-upload": "^1.4.0",
     "ngx-doc-viewer": "^14.0.0",
     "ngx-print": "^1.2.1",
-    "ngx-toastr": "^15.2.0",
+    "ngx-toastr": "^15.2.2",
     "nodemailer": "^6.8.0",
     "path": "^0.12.7",
     "rxjs": "~7.5.0",

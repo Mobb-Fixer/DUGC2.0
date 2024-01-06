@@ -1,11 +1,8 @@
-import { Component, OnInit, NgModule, enableProdMode } from '@angular/core';
+import { Component, enableProdMode, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
 import * as XLSX from 'xlsx';
-import { VirtualTimeScheduler } from 'rxjs';
-import { DxChartModule } from 'devextreme-angular';
-import { BrowserModule } from '@angular/platform-browser';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import Chart, { BubbleController } from 'chart.js/auto'
+import Chart from 'chart.js/auto';
 
 if (!/localhost/.test(document.location.host)) {
   enableProdMode();
@@ -16,52 +13,64 @@ if (!/localhost/.test(document.location.host)) {
   templateUrl: './upload.component.html',
   styleUrls: ['./upload.component.css'],
 })
-export class UploadComponent {
-  ExcelData: any;
-  x: Text[] = [];
-  y: number[] = [];
+export class UploadComponent implements OnInit {
+  excelData: any;
+  chartLabels: string[] = [];
+  chartData: number[] = [];
 
   willDownload = false;
+  showToaster: boolean = false;
+  toasterMessage: string = '';
 
-  customizeText(arg: any) {
-    return `GRADE ${arg.valueText}`;
-  }
-
-  constructor() {}
+  constructor(private http: HttpClient, private toastr: ToastrService) {}
 
   ngOnInit(): void {}
-  ReadExcel(event: any) {
-    let file = event.target.files[0];
 
+  readExcel(event: any) {
+    let file = event.target.files[0];
     let fileReader = new FileReader();
     fileReader.readAsBinaryString(file);
+
     fileReader.onload = (e) => {
       var workBook = XLSX.read(fileReader.result, { type: 'binary' });
       var sheetNames = workBook.SheetNames;
-      this.ExcelData = XLSX.utils.sheet_to_json(workBook.Sheets[sheetNames[0]]);
-      console.log(this.ExcelData);
-      var i = 0;
-      for (let data of this.ExcelData) {
-        this.x[i] = data.GRADE;
-        this.y[i++] = data.COUNT;
-      }
-      // console.log(this.y)
-      var src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"
-      var myChart = new Chart("myChart", {
-        type: "bar",
+      this.excelData = XLSX.utils.sheet_to_json(workBook.Sheets[sheetNames[0]]);
+
+      this.chartLabels = this.excelData.map((data: any) => data.Grades);
+      this.chartData = this.excelData.map((data: any) => data.Count);
+
+      var myChart = new Chart('myChart', {
+        type: 'bar',
         data: {
-          labels : this.x,
-          datasets: [{
-            label:'Number of students',
-            data: this.y,
-            backgroundColor:['#68aeff'],
-            borderWidth:1
-          }]
+          labels: this.chartLabels,
+          datasets: [
+            {
+              label: 'Number of students',
+              data: this.chartData,
+              backgroundColor: '#68aeff',
+              borderWidth: 1,
+            },
+          ],
         },
         options: {
-          responsive:true
-        }
+          responsive: true,
+        },
       });
     };
+  }
+
+  submitFile() {
+    if (this.excelData && this.excelData.length > 0) {
+      console.log(this.excelData)
+      setTimeout(() => {
+        this.showToaster = true;
+        this.toastr.success('File uploaded successfully!');
+      }, 1000);
+
+      console.log('Uploaded Data:', this.excelData);
+    } else {
+      this.showToaster = true;
+      this.toastr.error('Error uploading file. Please select a file.');
+    }
   }
 }
