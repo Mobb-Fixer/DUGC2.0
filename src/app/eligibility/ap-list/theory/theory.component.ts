@@ -4,8 +4,8 @@ import { StudentsService } from '../../services/students.service';
 import  * as XLSX from 'xlsx';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
-import * as allcourses from '../../../../../backend/server/data_files/courses_with_credits.json';
-import * as allcourses3 from '../../../../../backend/server/data_files/courses_for_endsem.json';
+import * as allcourses from 'backend/backend/server/data_files/courses_with_credits.json';
+import * as allcourses3 from 'backend/backend/server/data_files/courses_for_endsem.json';
 
 @Component({
   selector: 'app-theory',

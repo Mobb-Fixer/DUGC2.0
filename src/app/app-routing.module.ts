@@ -91,6 +91,7 @@ import { AboutUsComponent } from './Navbar/about-us/about-us.component';
 import { MembersComponentComponent } from './Navbar/members-component/members-component.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ContactUsComponent } from './Navbar/contact-us/contact-us.component';
+import { AddUserComponent } from './add-user/add-user.component';
 
 const routes: Routes = [
   { path: 'loginMain', component: DugcLoginComponent },
@@ -104,6 +105,7 @@ const routes: Routes = [
     component: MainHomepageComponent,
     // canActivate: [GuardService],
   },
+  {path:'add-user',component:AddUserComponent},
   {
     path: 'Minor',
     component: MinorAnalysisMainComponent,

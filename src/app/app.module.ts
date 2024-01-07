@@ -102,6 +102,7 @@ import { AboutUsComponent } from './Navbar/about-us/about-us.component';
 import { HomeNavbarComponent } from './Navbar/home-navbar/home-navbar.component';
 import { MembersComponentComponent } from './Navbar/members-component/members-component.component';
 import { ContactUsComponent } from './Navbar/contact-us/contact-us.component';
+import { AddUserComponent } from './add-user/add-user.component';
 
 
 @NgModule({
@@ -185,6 +186,7 @@ import { ContactUsComponent } from './Navbar/contact-us/contact-us.component';
     MembersComponentComponent,
     ContactUsComponent,
     LabmainComponent,
+    AddUserComponent,
   ],
   imports: [
     FlexLayoutModule,
