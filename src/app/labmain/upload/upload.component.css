@@ -103,6 +103,7 @@ h2 {
 #chart-wrapper {
   display: flex;
   justify-content: center;
+  margin-left: 15em;
 }
 
 #chart-wrapper canvas {

@@ -1,0 +1,80 @@
+<div class="nav-options" >
+    <div class="nav-op" routerLink="/Minor" [routerLinkActive]="['selected-option']">
+      ISA Analysis</div>
+    <div class="nav-op" routerLink="/Endsem" [routerLinkActive]="['selected-option']">
+      End Sem Result Analysis</div>
+    <div class="nav-op" routerLink="/Labmain" [routerLinkActive]="['selected-option']">
+      Lab CIE Analysis</div>
+    <div class="nav-op" routerLink="/Withdrawal" [routerLinkActive]="['selected-option']">
+      Course Withdrawal</div>
+    <div class="nav-op" routerLink="/Circular" [routerLinkActive]="['selected-option']">
+      Circular</div>
+    <div class="nav-op" routerLink="/eligibility" [routerLinkActive]="['selected-option']">
+      Eligibility</div>
+    <div class="nav-op" routerLink="/makeup" [routerLinkActive]="['selected-option']">
+      Makeup Minor</div>
+    <div class="nav-op" routerLink="/add-user" [routerLinkActive]="['selected-option']">
+      Add User</div>
+
+  </div>
+
+<div class="main">
+    <div class="form">
+        <div class="form-text" style="padding-left: 5px; font-size: 20px;">Please add the new User :</div>
+        <div class="form-input">
+            <div class="input-section">
+                <div class="input-section-title">
+                    <label for="role">Choose the role of the user:</label>
+                </div>
+                <div class="input-section-content">
+                    <select id="role" name="role">
+                        <option disabled value="" [selected]="true"></option>
+                        <option value="faculty">Faculty</option>
+                        <option value="Course_coordinator">Course Coordinator</option>
+                        <option value="DUGC_coordinator">DUGC_coordinator</option>
+                    </select>
+                </div>
+            </div>
+            <div class="input-section">
+                <div class="input-section-title">
+                    <label for="Username">Enter the Username :</label>
+                </div>
+                <div class="input-section-content">
+                    <input id="Username" type="text" name="Username" placeholder="Ex: Username" required=""
+                        >
+                </div>
+            </div>
+            <div class="input-section">
+                <div class="input-section-title">
+                    <label for="email_id">Enter the Email ID :</label>
+                </div>
+                <div class="input-section-content">
+                    <input id="email_id" type="text" name="email_id" placeholder="Ex: abc@kletech.ac.in"
+                        required="">
+                </div>
+            </div>
+                       
+            <div class="input-section">
+                <div class="input-section-title">
+                    <label for="Password">Enter the Password :</label>
+                </div>
+                <div class="input-section-content">
+                    <input id="Password" type="password" name="password" required>
+                        <!-- Display validation message if the password is not entered -->
+                    <!-- <div >
+                        <div >Password is required</div>
+                    </div> -->
+                </div>
+            </div>         
+
+            <div class="input-section-add" style="margin-left: 11em;">
+                <div class="add">
+                    <!-- <button id="submit-upload" (click)="submitForm()">ADD</button> -->
+                    <button id="submit-upload">Add</button>
+                    <!-- <button id="reset-button" (click)="resetForm()">Reset</button> -->
+                    <button id="reset-button">Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

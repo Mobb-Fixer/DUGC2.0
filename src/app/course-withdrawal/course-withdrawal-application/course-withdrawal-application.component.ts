@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { StudentsService } from '../services/students.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgForm } from '@angular/forms';
-import * as allcourses from '../../../../backend/server/data_files/courses_with_credits.json'
+import * as allcourses from 'backend/backend/server/data_files/courses_with_credits.json'
 
 @Component({
   selector: 'app-course-withdrawal-application',

@@ -39,6 +39,11 @@
 
 }
 
+.nav-op:hover{
+  background-color: #C62128;
+  color: white;
+}
+
 
 #container {
   display: flex;

@@ -2,11 +2,15 @@
   margin-top: 1em;
   margin-left: 1em;
   margin-right: 2.2em;
+  width: 50%;
+  margin-left: 10%;
+  margin-top: 5%;
 }
 
 .form-text {
   font-weight: 600;
   letter-spacing: -0.03em;
+  font-size: 18px;
 }
 
 .input-section {
@@ -128,4 +132,8 @@
 
 h2{
   text-align: center;
+}
+
+#year{
+  width: 26%;
 }
