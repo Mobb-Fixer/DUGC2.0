@@ -41,9 +41,8 @@
  </div> -->
 
 <br>
-<br>
-<div class="table-content">
-  <table class="table table-striped">
+<div class="table-content" *ngIf="submit">
+  <table class="table table-striped" border="1px">
     <thead>
       <tr>
         <th scope="col">MARKS</th>
@@ -53,7 +52,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let data of excelData">
-        <th scope="row">{{ data.Marks }}</th>
+        <th scope="row" style="text-align: center;">{{ data.Marks }}</th>
         <td>{{ data.Grades }}</td>
         <td>{{ data.Count }}</td>
       </tr>

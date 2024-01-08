@@ -59,6 +59,7 @@ export class UploadComponent implements OnInit {
     };
   }
 
+  submit:boolean=false;
   submitFile() {
     if (this.excelData && this.excelData.length > 0) {
       console.log(this.excelData)
@@ -72,5 +73,6 @@ export class UploadComponent implements OnInit {
       this.showToaster = true;
       this.toastr.error('Error uploading file. Please select a file.');
     }
+    this.submit=true;
   }
 }
