@@ -1,0 +1,94 @@
+* {
+  letter-spacing: -0.035em;
+}
+
+
+#printButton {
+  padding: 0.4em 0.4em;
+  border: 0.15em solid #C62128;
+  border-radius: 0.5em;
+  margin: 0em 47em;
+  font-weight: 600;
+  color: #636363;
+  letter-spacing: -0.03em;
+  transition: 0.6s;
+  font-size: 1em;
+  width: 120px;
+}
+
+#printButton:hover {
+  cursor: pointer;
+  transition: 0.6s;
+  color: #ffffff;
+  background-color: #C62128;
+}
+
+.container {
+  margin: 0em 1em;
+}
+
+/* table,
+th,
+td {
+  border: 1px solid black;
+  text-align: center;
+} */
+table,
+td,
+th {
+  border: 1px solid black;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.charts {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+}
+
+.chart-display {
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-row {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 2em;
+  margin-left: 22em;
+}
+
+.chart-row div:first-of-type {
+  margin-right: 5em;
+}
+
+.title {
+  font-weight: 700;
+  color: #636363;
+  margin-left: 10em;
+  justify-content: center;
+  display: flex;
+}
+
+.title:first-of-type {
+  margin-top: 1.4em;
+}
+
+.subtitle {
+  font-weight: 500;
+  color: #636363;
+  margin-left: 10em;
+  justify-content: center;
+  display: flex;
+}
+
+.bold {
+  font-weight: 700 !important;
+}
+
+.table-analysis{
+  margin-left: 30%;
+  display: flex;
+  justify-content: center;
+}

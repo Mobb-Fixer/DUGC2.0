@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="card-options">
+      <div class="card" routerLink="/Minor/coordinator/single" [routerLinkActive]="['selected-option']">
+          <div class="card-body">
+              <h5 class="card-title">Single Marksheet Upload</h5>
+              
+          </div>
+      </div>
+
+      <div class="card" routerLink="/Minor/coordinator/consolidated" [routerLinkActive]="['selected-option']">
+          <div class="card-body">
+              <h5 class="card-title">Consolidated Marksheet Upload</h5>
+              
+          </div>
+      </div>
+
+      <div class="card" routerLink="/Minor/coordinator/delete" [routerLinkActive]="['selected-option']">
+          <div class="card-body">
+              <h5 class="card-title">Delete Marksheet</h5>
+              
+          </div>
+      </div>
+  </div>
+
+  <div class="dashboard">
+      <div>
+          <router-outlet></router-outlet>
+      </div>
+  </div>
+</div>
