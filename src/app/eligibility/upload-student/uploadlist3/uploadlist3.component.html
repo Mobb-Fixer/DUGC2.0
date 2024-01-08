@@ -77,8 +77,8 @@
      -->
 
 
-     <form class="form-input1">
-      <div class="modal-body">
+     <form class="form-input1" >
+      <div class="modal-body" style="width: 50%; margin-left: 38%;">
         <label class="control-label" for="course">Select Sem</label>
         <select class="form-select mb-3" name="sem" id="sem" [(ngModel)]="inp.sem" required>
           <option value="" disabled selected>Select Semester</option>
@@ -91,7 +91,7 @@
         </select>
       </div>
 
-      <button class="btn" id="submit-upload" (click)="retrieveDataBySem()">
+      <button class="btn" id="submit-upload" (click)="retrieveDataBySem()" style="margin-left: 35%;">
         <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
           <path d="M3 18h18v-2H3v2zm0-4h18v-2H3v2zm0-4h18V8H3v2z"/>
         </svg>

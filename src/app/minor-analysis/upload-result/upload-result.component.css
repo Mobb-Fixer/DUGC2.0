@@ -13,6 +13,7 @@
   margin-top: 1em;
   display: flex;
   flex-direction: column;
+  margin-left: 10%;
 }
 
 .status-content {

@@ -78,7 +78,6 @@ import { LabComponent } from './eligibility/lab/lab.component';
 import { ApListComponent } from './eligibility/ap-list/ap-list.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { UploadStudentComponent } from './eligibility/upload-student/upload-student.component';
-import { NgxPrintModule } from 'ngx-print';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EligibilityHomeComponent } from './eligibility/eligibility-home/eligibility-home.component';
 import { TheoryComponent } from './eligibility/ap-list/theory/theory.component';
@@ -102,6 +101,7 @@ import { AboutUsComponent } from './Navbar/about-us/about-us.component';
 import { HomeNavbarComponent } from './Navbar/home-navbar/home-navbar.component';
 import { MembersComponentComponent } from './Navbar/members-component/members-component.component';
 import { ContactUsComponent } from './Navbar/contact-us/contact-us.component';
+import { AddUserComponent } from './add-user/add-user.component';
 
 
 @NgModule({
@@ -185,6 +185,7 @@ import { ContactUsComponent } from './Navbar/contact-us/contact-us.component';
     MembersComponentComponent,
     ContactUsComponent,
     LabmainComponent,
+    AddUserComponent,
   ],
   imports: [
     FlexLayoutModule,
@@ -199,8 +200,7 @@ import { ContactUsComponent } from './Navbar/contact-us/contact-us.component';
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    DxChartModule,
-    NgxPrintModule
+    DxChartModule
   ],
   providers: [AuthService,GuardService,
   {

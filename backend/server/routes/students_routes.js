@@ -1,9 +1,9 @@
 const express = require('express');
 const app = express();
 const studentRoute = express.Router();
-let studentSchema = require('../models/student_model');
+let studentSchema = require('../model/student_model');
 
-studentRoute.route('/getStudents').get((req, res, next)=>{
+studentRoute.route('/').get((req, res, next)=>{
     studentSchema.find((error, data)=>{
         if(error){
             return next(error)

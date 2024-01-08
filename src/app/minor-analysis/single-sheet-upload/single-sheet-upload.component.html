@@ -111,13 +111,9 @@
             <div class="input-section">
                 <div class="status-message">{{statusMessage}}</div>
             </div>
-            <div>
-                <button id="submit-upload" (click)="submitForm()">Submit</button>
-                <button id="reset-button" (click)="resetForm()">Reset</button>
-            </div>
+            
         </form>
     </div>
-    <div>
         <div class="upload-status-main">
             <div *ngIf="inp.course != '' && inp.semester != '';">
                 <div class="us-heading">Upload Status</div>
@@ -153,5 +149,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    
+</div>
+<div style="margin-left: 10%;">
+    <button id="submit-upload" (click)="submitForm()">Submit</button>
+    <button id="reset-button" (click)="resetForm()">Reset</button>
 </div>

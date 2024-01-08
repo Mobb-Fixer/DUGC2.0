@@ -15,10 +15,10 @@ export class DataService {
   constructor(private _http: HttpClient) {}
 
   getAnalysis() {
-    return this._http.get(`${this.URI}/analysis`);
+    return this._http.get(`${this.URI}/analysis`, { withCredentials: true });
   }
   getCourses() {
-    return this._http.get(`${this.URI}/get_courses`);
+    return this._http.get(`${this.URI}/get_courses`, { withCredentials: true });
   }
 
   getDUGC(sem_type: string, semester: string, exam: string) {
@@ -45,7 +45,9 @@ export class DataService {
     } = data;
     console.log('Making a get request', data);
     const headers = new HttpHeaders();
-    return this._http.post(`${this.URI}/upload_sheets`, data);
+    return this._http.post(`${this.URI}/upload_sheets`, data, {
+      withCredentials: true,
+    });
   }
 
   createCourse(data: any) {
@@ -59,6 +61,7 @@ export class DataService {
         cred2,
         cred3,
       },
+      withCredentials: true,
     });
   }
 
@@ -72,6 +75,7 @@ export class DataService {
         exam,
         section,
       },
+      withCredentials: true,
     });
   }
 
@@ -79,7 +83,9 @@ export class DataService {
     const { academic_year, sem_type, semester, course, exam, filename } = data;
     console.log('Making a get request', data);
     const headers = new HttpHeaders();
-    return this._http.post(`${this.URI}/upload_multiple_sheets`, data);
+    return this._http.post(`${this.URI}/upload_multiple_sheets`, data, {
+      withCredentials: true,
+    });
   }
 
   setFileHeader() {
@@ -98,20 +104,17 @@ export class DataService {
     });
   }
 
+  uploadlist(data: any) {
+    const { sem, filename } = data;
+    console.log('Making a get request', data);
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    return this._http.post(`${this.URI}/uploadTheory`, data, {
+      withCredentials: true,
+    });
+  }
 
-uploadlist(data: any) {
-  const {
-    sem,
-    filename,
-  } = data;
-  console.log('Making a get request', data);
-  const headers = new HttpHeaders();
-  headers.append('Content-Type', 'multipart/form-data');
-  return this._http.post(`${this.URI}/uploadTheory`, data);
-}
-
-
-getTheoryBySem(sem: number): Observable<any> {
-  return this._http.get(`${this.URI}/getTheoryBySem/${sem}`);
-}
+  getTheoryBySem(sem: number): Observable<any> {
+    return this._http.get(`${this.URI}/getTheoryBySem/${sem}`);
+  }
 }

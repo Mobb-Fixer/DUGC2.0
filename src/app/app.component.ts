@@ -10,7 +10,7 @@ export class AppComponent {
   title = 'DUGC';
   user_type: any = '';
   user_type_name: any = '';
-  constructor(private auth: AuthMainService) {}
+  constructor(public auth: AuthMainService) {}
 
   log() {
     this.user_type = this.auth.getUserType();
