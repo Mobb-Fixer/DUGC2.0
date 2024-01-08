@@ -209,4 +209,39 @@ export class ChartsComponent implements OnInit {
       }
     );
   }
+
+  printReport() {
+    // Hide unnecessary elements
+
+    
+    var elementsToHide = document.querySelectorAll("body > :not(.chart-display, .print)");
+    elementsToHide.forEach(function(element) {
+      if (element instanceof HTMLElement) { // Typecasting to HTMLElement
+        element.style.display = 'none';
+      }
+    });
+  
+    // Show the elements to print
+    var elementsToShow = document.querySelectorAll(".print, .chart-display");
+    elementsToShow.forEach(function(element) {
+      if (element instanceof HTMLElement) { // Typecasting to HTMLElement
+        element.style.display = 'block';
+      }
+    });
+  
+    // Print the content
+    window.print();
+  
+    // Reset the styles after printing
+    elementsToHide.forEach(function(element) {
+      if (element instanceof HTMLElement) { // Typecasting to HTMLElement
+        element.style.display = '';
+      }
+    });
+    elementsToShow.forEach(function(element) {
+      if (element instanceof HTMLElement) { // Typecasting to HTMLElement
+        element.style.display = '';
+      }
+    });
+  }
 }
