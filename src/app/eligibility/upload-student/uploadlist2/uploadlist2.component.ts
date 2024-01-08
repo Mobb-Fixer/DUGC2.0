@@ -52,28 +52,37 @@ onSubmit1(): void {
     this.dataService.uploadFile(this.filename).subscribe(
       (fileResp) => {
         console.log('File uploaded successfully:', fileResp);
+        this.toast.success('File uploaded successfully');
 
         // If the file upload is successful, proceed to upload sheets
         this.dataService.uploadlist(this.inp1).subscribe(
           (sheetsResp) => {
             console.log('Sheets uploaded successfully:', sheetsResp);
+            this.toast.success('Sheets uploaded successfully');
+
             // this.statusService.isUploaded = true;
             // this.statusService.setResult(sheetsResp);
             // this.router.navigate(['/Minor/coordinator/upload_status']);
           },
           (sheetsError) => {
             console.log('Error uploading sheets:', sheetsError);
+            this.toast.error('Error uploading sheets');
+
             // Handle error uploading sheets
           }
         );
       },
       (fileError) => {
         console.log('Error uploading file:', fileError);
+        this.toast.error('Error uploading file');
+
+        
         // Handle error uploading file
       }
     );
   } else {
-    alert('Please select a file first');
+
+    this.toast.error('Please select a file first');
   }
 }
 

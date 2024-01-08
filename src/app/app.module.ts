@@ -78,7 +78,6 @@ import { LabComponent } from './eligibility/lab/lab.component';
 import { ApListComponent } from './eligibility/ap-list/ap-list.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { UploadStudentComponent } from './eligibility/upload-student/upload-student.component';
-import { NgxPrintModule } from 'ngx-print';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EligibilityHomeComponent } from './eligibility/eligibility-home/eligibility-home.component';
 import { TheoryComponent } from './eligibility/ap-list/theory/theory.component';
@@ -201,8 +200,7 @@ import { AddUserComponent } from './add-user/add-user.component';
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    DxChartModule,
-    NgxPrintModule
+    DxChartModule
   ],
   providers: [AuthService,GuardService,
   {

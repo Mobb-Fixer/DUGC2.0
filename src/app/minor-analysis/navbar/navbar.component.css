@@ -83,7 +83,7 @@
   border: none;
   width: 600px;
   height: 1em;
-  margin-left: 30em;
+  margin-left: 23em;
   height: 30px;
 
 }
@@ -181,4 +181,11 @@ a {
   flex-direction: column; */
   width: 28%;
   margin-left: 40%;
+}
+
+.chairman{
+  border: 1px solid black;
+  height: 200px;
+  width: 600px;
+  float: left;
 }

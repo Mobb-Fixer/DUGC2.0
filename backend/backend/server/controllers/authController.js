@@ -5,16 +5,14 @@ const { ErrorHandler } = require("../middlewares/errorHandler.js");
 
 const registerController = async (req, res, next) => {
   try {
-    let { name, email, password, role } = req.body;
-    name = name.trim();
-    email = email.trim();
-    password = password.trim();
-    role = role.trim();
+    let { username, email, password, role } = req.body;
+    // username = username.trim();
+    // email = email.trim();
+    // password = password.trim();
+    // role = role.trim();
 
-    if (name == "" || email == "" || password == "" || role == "") {
+    if (username == "" || email == "" || password == "" || role == "") {
       return next(new ErrorHandler("Empty Input Fields", 404));
-    } else if (!/^[a-zA-Z ]*$/.test(name)) {
-      return next(new ErrorHandler("Invalid Name Entered", 404));
     } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
       return next(new ErrorHandler("Invalid email entered", 404));
     } else if (password.length < 8) {
@@ -31,15 +29,13 @@ const registerController = async (req, res, next) => {
       const saltRounds = 10;
       const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-      admin = await Admins.create({
-        name,
+      await userModel.create({
+        username,
         email,
         password: hashedPassword,
-        verified: false,
         role,
       });
 
-      sendAdminVerificationEmail(admin, res);
       res.status(201).json({
         success: true,
         message:
@@ -56,7 +52,6 @@ const loginController = async (req, res, next) => {
     let { email, password } = req.body;
     email = email.trim();
     password = password.trim();
-    console.log(email, password);
 
     if (email == "" || password == "") {
       return next(new ErrorHandler("Empty Credentials Supplied!", 404));
@@ -71,31 +66,20 @@ const loginController = async (req, res, next) => {
       return next(new ErrorHandler("Invalid Email or Password Entered", 404));
     }
 
-    // if (!user.verified) {
-    //   return next(
-    //     new ErrorHandler(
-    //       "Email hasn't been verified yet. Check your inbox",
-    //       404
-    //     )
-    //   );
-    // } else {
-    //   const isMatch = await bcrypt.compare(password, admin.password);
+    const isMatch = await bcrypt.compare(password, user.password);
 
-    //   if (!isMatch) {
-    //     return next(new ErrorHandler("Invalid Email or Password Entered", 404));
-    //   }
-
-    //   const adminData = Object.assign({}, admin.toObject());
-    //   delete adminData.password;
-
-    //   sendCookie(adminData, res, "Welcome back", 201);
-    // }
-    if (password !== user.password) {
+    if (!isMatch) {
       return next(new ErrorHandler("Invalid Email or Password Entered", 404));
     }
 
     const adminData = Object.assign({}, user.toObject());
     delete adminData.password;
+
+    // sendCookie(adminData, res, "Welcome back", 201);
+
+    // if (password !== user.password) {
+    //   return next(new ErrorHandler("Invalid Email or Password Entered", 404));
+    // }
 
     sendCookie(adminData, res, "Welcome back", 201);
   } catch (error) {

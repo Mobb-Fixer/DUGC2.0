@@ -81,6 +81,6 @@ router.get("/allusers", function (req, res, next) {
 // })
 
 router.post("/login", loginController);
-router.post("/register", registerController);
-
+// router.post("/register", registerController);
+router.post("/addUser", registerController);
 module.exports = router;

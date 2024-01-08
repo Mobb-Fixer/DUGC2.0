@@ -130,7 +130,12 @@ function uploadFiles(req, res) {
   res.json({ message: "Successfully uploaded files" });
 }
 
-app.post("/upload_file", upload.single("filename"), uploadFiles);
+app.post(
+  "/upload_file",
+  securityHandler.isFacultyCord,
+  upload.single("filename"),
+  uploadFiles
+);
 
 app.get("/filemanager/raw%5C:fileName", function (req, res) {
   const { fileName } = req.params;
@@ -153,7 +158,7 @@ app.get("/filemanager/browse%5C:addr", (req, res) => {
   }
 });
 
-app.post("/upload_sheets", (req, res) => {
+app.post("/upload_sheets",securityHandler.isFacultyCord ,(req, res) => {
   let this_year = "2022-23";
   const { academic_year, sem_type, semester, course, exam, section, filename } =
     req.body;
@@ -227,11 +232,9 @@ app.post("/upload_sheets", (req, res) => {
   });
 });
 
-
-const Theory = require('./models/theories.js'); // Import the User model here
-const xlsx = require('xlsx');
+const Theory = require("./models/theories.js"); // Import the User model here
+const xlsx = require("xlsx");
 var uploadi = multer({ storage: storage });
-
 
 app.post("/uploadTheory", async (req, res) => {
   const { sem, filename } = req.body;
@@ -239,7 +242,9 @@ app.post("/uploadTheory", async (req, res) => {
 
   if (!filename) {
     console.log("Filename is not provided in the request.");
-    return res.status(400).json({ error: "Filename is required in the request body." });
+    return res
+      .status(400)
+      .json({ error: "Filename is required in the request body." });
   }
   let f = filename.split("\\");
   let file_name = f[f.length - 1];
@@ -256,51 +261,53 @@ app.post("/uploadTheory", async (req, res) => {
   }
 
   let resultSheet1 = result1.Sheet1;
-// Filter out entries where Sl_no is null
-resultSheet1 = resultSheet1.filter(data => isValidNumber(data.A));
+  // Filter out entries where Sl_no is null
+  resultSheet1 = resultSheet1.filter((data) => isValidNumber(data.A));
 
-// Map the data to the desired format for MongoDB insertion
-let userData = resultSheet1.map((data) => ({
-  Sl_no: parseInt(data.A),
-  USN: data.B,
-  Name: data.C,
-  Sem: isValidNumber(data.D) ? parseInt(data.D) : null,
-  div: data.E,
-  CourseId: data.F,
-  CourseName: data.G,
-  CIE: isValidNumber(data.H) ? parseInt(data.H) : null,
-  Attendance: isValidNumber(data.I) ? parseInt(data.I) : null,
-}));
+  // Map the data to the desired format for MongoDB insertion
+  let userData = resultSheet1.map((data) => ({
+    Sl_no: parseInt(data.A),
+    USN: data.B,
+    Name: data.C,
+    Sem: isValidNumber(data.D) ? parseInt(data.D) : null,
+    div: data.E,
+    CourseId: data.F,
+    CourseName: data.G,
+    CIE: isValidNumber(data.H) ? parseInt(data.H) : null,
+    Attendance: isValidNumber(data.I) ? parseInt(data.I) : null,
+  }));
 
-try {
-  // Insert the transformed data into MongoDB
-  const result2 = await Theory.create(userData);
-  console.log("Data inserted into MongoDB!", result2);
+  try {
+    // Insert the transformed data into MongoDB
+    const result2 = await Theory.create(userData);
+    console.log("Data inserted into MongoDB!", result2);
 
-  // You can also write the data to a JSON file if needed
-  fs.writeFile("./data_files/ineligible.json", JSON.stringify(userData), (err) => {
-    if (err) {
-      console.error("Error writing file:", err);
-    } else {
-      console.log("Done writing JSON file!");
-    }
-  });
+    // You can also write the data to a JSON file if needed
+    fs.writeFile(
+      "./data_files/ineligible.json",
+      JSON.stringify(userData),
+      (err) => {
+        if (err) {
+          console.error("Error writing file:", err);
+        } else {
+          console.log("Done writing JSON file!");
+        }
+      }
+    );
 
-  res.json({
-    sem,
-    filename: file_name,
-  });
-} catch (err) {
-  console.error("Error inserting data into MongoDB:", err);
-  res.status(500).json({ error: "Internal Server Error" });
-}
+    res.json({
+      sem,
+      filename: file_name,
+    });
+  } catch (err) {
+    console.error("Error inserting data into MongoDB:", err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 function isValidNumber(value) {
   return !isNaN(value) && value !== null && value !== undefined;
 }
-
-
 
 // Endpoint to retrieve data based on semester
 app.get("/getTheoryBySem/:sem", async (req, res) => {
@@ -309,7 +316,9 @@ app.get("/getTheoryBySem/:sem", async (req, res) => {
     const sem = parseInt(req.params.sem);
 
     if (isNaN(sem)) {
-      return res.status(400).json({ error: "Invalid semester value provided." });
+      return res
+        .status(400)
+        .json({ error: "Invalid semester value provided." });
     }
 
     // Query MongoDB to find data based on the provided semester
@@ -322,8 +331,7 @@ app.get("/getTheoryBySem/:sem", async (req, res) => {
   }
 });
 
-
-app.post("/upload_multiple_sheets", (req, res) => {
+app.post("/upload_multiple_sheets",securityHandler.isFacultyCord, (req, res) => {
   let this_year = "2022-23";
   const { academic_year, sem_type, semester, course, exam, filename } =
     req.body;
@@ -408,12 +416,12 @@ app.post("/upload_multiple_sheets", (req, res) => {
   });
 });
 
-app.get("/dugc_chairman", (req, res) => {
+app.get("/dugc_chairman",securityHandler.isDugcChairman ,(req, res) => {
   console.log("On DUGC chairman page.");
   res.json({ data_file });
 });
 
-app.get("/create_course", (req, res) => {
+app.get("/create_course",securityHandler.isDugcChairman , (req, res) => {
   let { semester, course_code, course_name, cred1, cred2, cred3 } = req.query;
 
   let new_data = data_file;
@@ -513,7 +521,7 @@ app.get("/create_course", (req, res) => {
   res.json({ course_code, course_name, semester });
 });
 
-app.get("/coordinator", (req, res) => {
+app.get("/coordinator",securityHandler.isDugcChairman , (req, res) => {
   console.log("On Coordinator page.");
   res.json({ data_file, course_file });
 });

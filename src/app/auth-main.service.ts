@@ -12,10 +12,15 @@ export class AuthMainService {
   userCredentials: BehaviorSubject<any> = new BehaviorSubject(null);
   private Loginurl = 'http://localhost:3000/auth/login';
   private registerurl = 'http://localhost:3000/auth/register';
+  private addUserUrl = 'http://localhost:3000/auth/addUser';
   constructor(private http: HttpClient, private route: Router) {}
 
   LoginUser(user: any) {
     return this.http.post(this.Loginurl, user, { withCredentials: true });
+  }
+
+  AddUser(user: any) {
+    return this.http.post(this.addUserUrl, user, { withCredentials: true });
   }
 
   RegisterUser(user: any) {
