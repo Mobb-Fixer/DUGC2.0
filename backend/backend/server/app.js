@@ -139,7 +139,7 @@ app.post(
 
 app.get("/filemanager/raw%5C:fileName", function (req, res) {
   const { fileName } = req.params;
-  const file = `./spreadsheets/${fileName}`;
+  const file = `./spreadsheets/new/${fileName}`;
   res.download(file);
 });
 
