@@ -30,33 +30,42 @@
         </div>
     </div> -->
     <div class="nav-options1">
-        <div *ngIf="userType =='CourseCoordinator'">
-            <div class="nav-op1" routerLink="/Minor/coordinator" [routerLinkActive]="['selected-option']">
-                Upload Marksheets
-            </div>
-            <a href="http://localhost:3000/filemanager" target="_self">
-                <div class="nav-op1" style="margin-left: 20px;">
-                    View Excel Sheets
-                </div>
-            </a>
-        </div>
-        <div *ngIf="userType =='DUGCCoordinator'">
-            <div class=" nav-op3" routerLink="/Minor/dugc"  [routerLinkActive]="['selected-option']">View ISA Analysis
-            </div>
-        </div>
-        <div *ngIf="userType =='DUGCChairman'" class="chairman">
-            <div class=" nav-op2" routerLink="/Minor/dugc" style="float: left;" [routerLinkActive]="['selected-option']">View ISA Analysis
-            </div>
-            <div class="nav-op2" routerLink="/Minor/dugc_chairman" style="float: left;" [routerLinkActive]="['selected-option']">Create Course
-            </div>
-            <div class="nav-op2" routerLink="/Minor/dugc_chairman" style="float: left;" [routerLinkActive]="['selected-option']">Create Divison
-            </div>
-            <a href="http://localhost:3000/filemanager" target="_self">
-              <div class="nav-op2" style="float: left; margin-left: 30px;">
+      <!-- CourseCoordinator buttons -->
+      <div *ngIf="userType =='CourseCoordinator'">
+          <div class="nav-op1" routerLink="/Minor/coordinator" [routerLinkActive]="['selected-option']">
+              Upload Marksheets
+          </div>
+          <a href="http://localhost:3000/filemanager" target="_self">
+              <div class="nav-op1" style="margin-left: 20px;">
                   View Excel Sheets
               </div>
           </a>
-        </div>
-        
-    </div>
+      </div>
+  
+      <!-- DUGCCoordinator buttons -->
+      <div *ngIf="userType =='DUGCCoordinator'">
+          <div class=" nav-op3" routerLink="/Minor/dugc"  [routerLinkActive]="['selected-option']">
+              View ISA Analysis
+          </div>
+      </div>
+  
+      <!-- DUGCChairman buttons -->
+      <div *ngIf="userType =='DUGCChairman'" class="chairman">
+          <div class=" nav-op2" routerLink="/Minor/dugc" style="float: left;" [routerLinkActive]="['selected-option']">
+              View ISA Analysis
+          </div>
+          <div class="nav-op2" routerLink="/Minor/dugc_chairman" style="float: left;" [routerLinkActive]="['selected-option']">
+              Create Course
+          </div>
+          <div class="nav-op2" routerLink="/Minor/dugc_chairman" style="float: left;" [routerLinkActive]="['selected-option']">
+              Create Division
+          </div>
+          <a href="http://localhost:3000/filemanager" target="_self" class="nav-op2" style="margin-left: 2%;">
+              <div>
+                  View Excel Sheets
+              </div>
+          </a>
+      </div>
+  </div>
+  
 </div>
