@@ -95,7 +95,7 @@ app.use("/makeup", makeupRouter);
 app.use("/course", courseRouter);
 
 //!MINOR ANALYSIS ROUTES - START
-app.use("/filemanager/", fileManager("./spreadsheets"));
+app.use("/filemanager/", fileManager("./spreadsheets/new"));
 const dataParticulars = ["D", "C", "B", "A", "S", "Average", "Total"];
 const dataSections = ["A", "B", "C", "D", "E"];
 app.set("json spaces", 2);
@@ -151,7 +151,7 @@ app.get("/filemanager/browse%5C", (req, res) => {
 app.get("/filemanager/browse%5C:addr", (req, res) => {
   console.log("On folder page.");
   if (!req.params || !req.params.addr || req.params.addr === " ") {
-    res.redirect(`/filemanager`);
+    res.redirect(`/filemanager/new`);
     return;
   } else {
     res.redirect(`/filemanager/browse/${req.params.addr}`);
