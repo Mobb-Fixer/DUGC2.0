@@ -44,4 +44,6 @@ export class AppComponent {
       this.user_type_name = 'DUGC Chairman';
     }
   }
+
+  
 }
