@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import {saveAs} from 'file-saver';
+import { DownloadfileService } from './downloadfile.service';
 
 @Component({
   selector: 'app-contact-us',
@@ -7,8 +10,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./contact-us.component.css']
 })
 export class ContactUsComponent implements OnInit {
-
-  constructor(private router: Router) {}
+    title='downloadfile';
+  constructor(private service:DownloadfileService,
+    private router:Router) {}
 
   showLoginform: boolean = true;
   alert:boolean=false;
@@ -22,8 +26,16 @@ export class ContactUsComponent implements OnInit {
     this.alert=true;
   }
 
-
   ngOnInit(): void {
   }
+
+  downloadFile(){
+    this.service.downloadFile().subscribe((data:Blob | MediaSource)=>{
+      let downloadURL=window.URL.createObjectURL(data)
+      saveAs(downloadURL)
+    })
+  }
+
+ 
 
 }
