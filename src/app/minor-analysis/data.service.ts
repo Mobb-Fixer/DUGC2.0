@@ -104,6 +104,17 @@ export class DataService {
     });
   }
 
+  uploadEmail11(fileToUpload: File) {
+    console.log('on service');
+    console.log(fileToUpload);
+    let fd = new FormData();
+    fd.append('filename', fileToUpload, fileToUpload.name);
+    return this._http.post(`${this.URI}/upload_Email`, fd, {
+      headers: this.setFileHeader(),
+      withCredentials: true,
+    });
+  }
+
   uploadlist(data: any) {
     const { sem, filename } = data;
     console.log('Making a get request', data);
@@ -112,6 +123,14 @@ export class DataService {
     return this._http.post(`${this.URI}/uploadTheory`, data, {
       withCredentials: true,
     });
+  }
+
+  uploadEmail(data: any) {
+    const { email,message,filename } = data;
+    console.log('Making a get request', data);
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    return this._http.post(`${this.URI}/uploadEmail`, data);
   }
 
   getTheoryBySem(sem: number): Observable<any> {
