@@ -7,6 +7,7 @@ var jwt = require("jsonwebtoken");
 var { config } = require("dotenv");
 
 var cors = require("cors");
+const nodemailer=require('nodemailer');
 
 var mongoose = require("mongoose");
 const { errorMiddleware } = require("./middlewares/errorHandler.js");
@@ -434,8 +435,130 @@ app.get('/downloadfile',(req,res,next)=>{
       next(err);
     }
    })
-})
+});
 
+app.post('/send-message',(req,res)=>{
+  console.log("hii");
+  const {name,email,message}=req.body;
+  
+  console.log(req.body);
+  
+
+  //email,subject,message;
+  
+  //const html = <h1>{{message}}</h1>;
+  
+  
+  
+  
+  
+  async function main() {
+    // Create a transporter with Gmail SMTP settings
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: '414vpu2alwynfernandes@gmail.com',
+        pass: 'xhpiiamkxmarjbhu',
+      },
+    });
+  
+    const info = await transporter.sendMail({
+      from:email,
+      to: "dugckle@gmail.com", // Replace with the recipient's email address
+      subject: 'Testing 123',
+      text: message,
+    });
+  
+    console.log('Message sent: ' + info.messageId);
+  }
+  
+  main().catch((e) => console.log(e));
+  
+
+});
+
+const email = 'ktestkle@gmail.com';
+const password = 'uhebyppldnazdhsz';
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: email,
+    pass: password,
+  },
+});
+
+
+
+const storager = multer.memoryStorage(); // Store the file in memory
+const uploader = multer({ storage: storager });
+
+
+
+app.post('/circular', uploader.single('file'),async (req, res) => {
+  const file = req.file;
+  console.log("hiii");
+  const subject=req.body.subject;
+  const text=req.body.text;
+  const mailOptions = {
+    from: email,
+    subject,
+    text,
+    attachments: [
+      {
+        filename: file.originalname,
+        content: file.buffer,
+      },
+    ],
+  };
+
+ const sendEmail = async (options) => {
+  try {
+    await transporter.sendMail(options);
+    console.log(`Email sent successfully to ${options.to}`);
+  } catch (error) {
+    console.error(`Error sending email to ${options.to}:, error.message`);
+  }
+};
+
+// Function to generate email addresses based on a pattern
+const generateEmails = (prefix, start, end, suffix) => {
+  const emails = [];
+  for (let i = start; i <= end; i++) {
+    const paddedIndex = i.toString().padStart(3, '0');
+    const email = `${prefix}${paddedIndex}${suffix}`;
+    emails.push(email);
+  }
+  return emails;
+};
+
+// Replace '01fe21bcs' and 'example.kletech.ac.in' with your desired pattern
+const prefix = '01fe21bcs';
+const suffix = '@kletech.ac.in';
+
+// Specify the range of email indices you want to send
+const startIdx = 230;
+const endIdx = 235; // For testing, reduce the range to a smaller number
+
+// Generate the list of target email addresses
+const targetEmails = generateEmails(prefix, startIdx, endIdx, suffix);
+
+// Function to introduce a delay
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// Send emails to each target address with a delay
+const sendEmailsSequentially = async () => {
+  for (const to of targetEmails) {
+    mailOptions.to = to;
+
+    await sendEmail(mailOptions);
+    await delay(200); 
+  }
+};
+
+// Start sending emails
+sendEmailsSequentially();
+});
 
 app.get("/create_course",securityHandler.isDugcChairman , (req, res) => {
   let { semester, course_code, course_name, cred1, cred2, cred3 } = req.query;
@@ -705,5 +828,82 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
+
+
+
+// circular
+
+
+
+
+// // const storager = multer.memoryStorage(); // Store the file in memory
+// // const uploader = multer({ storage: storager });
+
+
+
+// app.post('/circular', async (req, res) => {
+//   // const file = req.file;
+//   console.log("hiii");
+//   const subject=req.body.subject;
+//   const text=req.body.text;
+//   const mailOptions = {
+//     from: email,
+//     subject,
+//     text,
+//     // attachments: [
+//     //   {
+//     //     filename: file.originalname,
+//     //     content: file.buffer,
+//     //   },
+//     // ],
+//   };
+
+//  const sendEmail = async (options) => {
+//   try {
+//     await transporter.sendMail(options);
+//     console.log(`Email sent successfully to ${options.to}`);
+//   } catch (error) {
+//     console.error(`Error sending email to ${options.to}:, error.message`);
+//   }
+// };
+
+// // Function to generate email addresses based on a pattern
+// const generateEmails = (prefix, start, end, suffix) => {
+//   const emails = [];
+//   for (let i = start; i <= end; i++) {
+//     const paddedIndex = i.toString().padStart(3, '0');
+//     const email = `${prefix}${paddedIndex}${suffix}`;
+//     emails.push(email);
+//   }
+//   return emails;
+// };
+
+// // Replace '01fe21bcs' and 'example.kletech.ac.in' with your desired pattern
+// const prefix = '01fe21bcs';
+// const suffix = '@kletech.ac.in';
+
+// // Specify the range of email indices you want to send
+// const startIdx = 313;
+// const endIdx = 316; // For testing, reduce the range to a smaller number
+
+// // Generate the list of target email addresses
+// const targetEmails = generateEmails(prefix, startIdx, endIdx, suffix);
+
+// // Function to introduce a delay
+// const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// // Send emails to each target address with a delay
+// const sendEmailsSequentially = async () => {
+//   for (const to of targetEmails) {
+//     mailOptions.to = to;
+
+//     await sendEmail(mailOptions);
+//     await delay(200); 
+//   }
+// };
+
+// // Start sending emails
+// sendEmailsSequentially();
+// });
 
 module.exports = app;
