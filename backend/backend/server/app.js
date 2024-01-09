@@ -421,6 +421,22 @@ app.get("/dugc_chairman",securityHandler.isDugcChairman ,(req, res) => {
   res.json({ data_file });
 });
 
+
+app.use(express.static('userManual'));
+
+app.use(function(err,req,res,next){
+  res.status(err.status).send(err);
+})
+
+app.get('/downloadfile',(req,res,next)=>{
+   res.download("./userManual/DUGC_User_mannual.docx",function(err){
+    if(err){
+      next(err);
+    }
+   })
+})
+
+
 app.get("/create_course",securityHandler.isDugcChairman , (req, res) => {
   let { semester, course_code, course_name, cred1, cred2, cred3 } = req.query;
 
