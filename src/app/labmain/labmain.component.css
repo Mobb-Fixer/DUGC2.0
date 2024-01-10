@@ -179,3 +179,8 @@
     width: 28%;
     margin-left: 40%;
   }
+
+  .chairman {
+    display: flex;          /* Use flexbox */
+    align-items: center;    /* Align items vertically in the center */
+}

@@ -1,296 +1,111 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    /* padding: 0; */
-    /* display: flex; */
-    /* justify-content: center; */
-    /* align-items: center; */
-    height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  height: 100vh;
 }
 
 .contact-form {
-    max-width: 500px;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-left: 37%;
-    margin-top: 3%;
-    margin: 3% auto;
+  max-width: 500px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 3% 30%;
+}
+
+@media screen and (max-width: 768px) {
+  .contact-form {
+      max-width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .contact-form {
+      max-width: 800px;
+      margin-left: 30%;
+  }
 }
 
 .form-title {
-    text-align: center;
-    font-size:40px;
-    color: #333;
-    margin-bottom: 8px;
+  text-align: center;
+  font-size: 40px;
+  color: #333;
+  margin-bottom: 8px;
 }
 
 .form-subtitle {
-    text-align: center;
-    font-size: 20px;
-    color: #666;
-    margin-bottom: 20px;
+  text-align: center;
+  font-size: 20px;
+  color: #666;
+  margin-bottom: 20px;
 }
 
 .form-group {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .form-group label {
-    display: block;
-    font-size: 14px;
-    color: #555;
-    margin-bottom: 5px;
+  display: block;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 5px;
 }
 
 .form-group input,
 .form-group textarea {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 14px;
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 14px;
 }
 
 .form-group textarea {
-    resize: vertical;
+  resize: vertical;
 }
 
 .submit-btn {
-    background-color:#C62128;
-    color: #fff;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-left: 40%;
-    transition: 0.6s;
+  background-color: #C62128;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 40%;
+  transition: 0.6s;
 }
 
 .submit-btn:hover {
-    transition: 0.6s;
-    background-color: #45a049;
+  background-color: #45a049;
 }
 
+.navbar {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 0.7em;
+  border-bottom: 0.3vh solid #C62128;
+}
+
+.btn{
+  padding: 0.4em 1.1em;
+  border: 0.15em solid #ffffff;
+  border-radius: 0.5em;
+  margin-left: 100%;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: -0.03em;
+  transition: 0.6s;
 
 
-.home-wrapper {
-    min-height: 2.4vw;
-  }
-  
-  #jumbotron {
-    position: absolute;
-    width: 84.5vw;
-    opacity: 70%;
-    z-index: 0;
-    border-radius: 5px;
-  }
-  
-  #overlay-text {
-    margin-top: -0.7em;
-    font-weight: 700;
-    z-index: -1;
-    padding: 1.5em 2em;
-    display: flex;
-    align-items: center;
-  }
-  
-  #title {
-    color: #C62128;
-    font-size: 3em;
-    padding-right: 0.5em;
-  }
-  
-  #subtitle {
-    font-size: 2em;
-    border-left: 0.1em solid black;
-    padding-left: 0.6em;
-  }
-  
-  .btn{
-    /* font-weight: 700;
-    text-align: center;
-    color: black;
-    background-color: white; */
-    padding: 0.4em 1.1em;
-    border: 0.15em solid #ffffff;
-    border-radius: 0.5em;
-    margin: 0.4em 0.4em;
-    font-weight: 600;
-    color: #ffffff;
-    letter-spacing: -0.03em;
-    transition: 0.6s;
-  
-  }
-  .btn:hover
-  {
-    background-color: crimson; 
-    transform: scale(1.2);
-    font-size: 16px;
-    color: white;
-  }
-  
-  img{
-    margin-top: 10px;
-    width: 100%;
-  }
-  @media print {
-    .nav-options {
-      display: none;
-    }
-    div #c1, footer{
-      display: none;
-    }
-  }
-  
-  .navbar {
-    display: flex;
-    flex-direction: row;
-    padding-bottom: 0.7em;
-    border-bottom: 0.3vh solid #C62128;
-  }
-  
-  
-  #disabled-option {
-    opacity: 20%;
-    pointer-events: none;
-  }
-  
-  
-  @media print {
-    .nav-options {
-      display: none;
-    }
-    div #c1, footer{
-      display: none;
-    }
-  }
-  
-  
-  #twitter-logo {
-    height: 30px;
-    margin: 0 8px;
-    margin-left: 75px;
-    background: #C62128;
-    border-radius: 20px;
-  }
-  
-  #youtube-logo {
-    height: 30px;
-    width: 30px;
-    margin: 0 16px;
-    background: #C62128;
-    border-radius: 18px;
-  }
-  
-  #facebook {
-    height: 30px;
-    width: 30px;
-    margin: 0 16px;
-    background: #C62128;
-    border-radius: 20px;
-  }
-  
-  #linkdin {
-    height: 30px;
-    width: 30px;
-    margin: 0 16px;
-    background: #C62128;
-    border-radius: 20px;
-  }
-  
-  #twitter-logo:hover,
-  #youtube-logo:hover {
-    opacity: 0.8;
-  }
-  
-  #facebook:hover,
-  #linkdin:hover {
-    opacity: 0.5;
-  
-  }
-  
-  /* #header1
-    {
-      /* background-color: #C62128; */
-  /* background: linear-gradient(270deg, rgba(204,49,0,1) 15%, rgba(224,137,88,1) 95%); 
-    } */
-  #c1 {
-    color: #C62128;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* background: linear-gradient(270deg, rgba(204,49,0,1) 15%, rgba(224,137,88,1) 95%); */
-  }
-  
-  #c1 a {
-    text-decoration: none;
-    font-weight: 500;
-    font-size: medium;
-  }
-  
-  #c1 a:hover {
-    color: #C62128;
-  }
-  
-  #c1 p {
-    font-weight: 500;
-  }
-  
-  
-  footer {
-    opacity: 70%;
-    margin-top: 10%;
-  }
-  
-  .footer-icon {
-    width: 30px;
-    margin-left: 1em;
-    opacity: 50%;
-  }
-  
-  .footer-icon:hover {
-    opacity: 90%;
-  }
-  
-  
-  .center3 div {
-    color: #C62128;
-    font-weight: 700;
-    font-size: 2vw;
-    letter-spacing: -0.10vw;
-    position: relative;
-    margin-right: 20px;
-  }
-
-  .download-btn-container{
-    margin-left: 43.5%;
-  }
-
-  .download-btn{
-    background-color: transparent;
-    border: 2px solid #C62128;
-    color:#C62128 ;
-    text-decoration: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    transition: 0.6s;
-
-  }
-  .download-btn:hover{
-    background-color: #C62128;
-    color: white;
-    transition: 0.6s;
-
-  }
-
-  .form-inline{
-    margin-left: 73%;
-  }
-  
-  
-  
+}
+.btn:hover
+{
+  background-color: crimson; 
+  transform: scale(1.2);
+  font-size: 16px;
+  color: white;
+}

@@ -24,7 +24,7 @@ export class ContactUsComponent implements OnInit {
     // Perform any additional actions here (e.g., form validation)
 
     // Navigate to the main homepage component
-    this.router.navigate(['/home']);
+    this.router.navigate(['/loginMain']);
     this.showLoginform=false;
     this.alert=true;
   }
