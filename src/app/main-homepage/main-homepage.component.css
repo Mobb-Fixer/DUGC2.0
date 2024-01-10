@@ -1,3 +1,97 @@
+/* Common styles for all screen sizes */
+
+* {
+  letter-spacing: -0.035em;
+}
+
+.btn {
+  padding: 0.4em 1.1em;
+  border: 0.15em solid #ffffff;
+  border-radius: 0.5em;
+  margin: 0.4em 0.4em;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: -0.03em;
+  transition: 0.6s;
+}
+
+.btn:hover {
+  background-color: crimson;
+  transform: scale(1.2);
+  font-size: 16px;
+  color: white;
+}
+
+img {
+  margin-top: 10px;
+  width: 100%;
+}
+
+@media print {
+  .nav-options,
+  div #c1,
+  footer {
+    display: none;
+  }
+}
+
+/* Navbar styles */
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 0.7em;
+  border-bottom: 0.3vh solid #C62128;
+}
+
+#disabled-option {
+  opacity: 20%;
+  pointer-events: none;
+}
+
+@media print {
+  .nav-options {
+    display: none;
+  }
+  div #c1,
+  footer {
+    display: none;
+  }
+}
+
+/* Social media icons */
+
+#twitter-logo,
+#youtube-logo,
+#facebook,
+#linkdin {
+  height: 30px;
+  margin: 0 8px;
+  background: #C62128;
+  border-radius: 20px;
+}
+
+#youtube-logo {
+  width: 30px;
+}
+
+#facebook,
+#linkdin {
+  width: 30px;
+}
+
+#twitter-logo:hover,
+#youtube-logo:hover {
+  opacity: 0.8;
+}
+
+#facebook:hover,
+#linkdin:hover {
+  opacity: 0.5;
+}
+
+/* Jumbotron and Overlay styles */
+
 .home-wrapper {
   min-height: 2.4vw;
 }
@@ -31,141 +125,7 @@
   padding-left: 0.6em;
 }
 
-.btn{
-  /* font-weight: 700;
-  text-align: center;
-  color: black;
-  background-color: white; */
-  padding: 0.4em 1.1em;
-  border: 0.15em solid #ffffff;
-  border-radius: 0.5em;
-  margin: 0.4em 0.4em;
-  font-weight: 600;
-  color: #ffffff;
-  letter-spacing: -0.03em;
-  transition: 0.6s;
-
-}
-.btn:hover
-{
-  background-color: crimson; 
-  transform: scale(1.2);
-  font-size: 16px;
-  color: white;
-}
-
-img{
-  margin-top: 10px;
-  width: 100%;
-}
-@media print {
-  .nav-options {
-    display: none;
-  }
-  div #c1, footer{
-    display: none;
-  }
-}
-
-.navbar {
-  display: flex;
-  flex-direction: row;
-  padding-bottom: 0.7em;
-  border-bottom: 0.3vh solid #C62128;
-}
-
-
-#disabled-option {
-  opacity: 20%;
-  pointer-events: none;
-}
-
-
-@media print {
-  .nav-options {
-    display: none;
-  }
-  div #c1, footer{
-    display: none;
-  }
-}
-
-
-#twitter-logo {
-  height: 30px;
-  margin: 0 8px;
-  margin-left: 75px;
-  background: #C62128;
-  border-radius: 20px;
-}
-
-#youtube-logo {
-  height: 30px;
-  width: 30px;
-  margin: 0 16px;
-  background: #C62128;
-  border-radius: 18px;
-}
-
-#facebook {
-  height: 30px;
-  width: 30px;
-  margin: 0 16px;
-  background: #C62128;
-  border-radius: 20px;
-}
-
-#linkdin {
-  height: 30px;
-  width: 30px;
-  margin: 0 16px;
-  background: #C62128;
-  border-radius: 20px;
-}
-
-#twitter-logo:hover,
-#youtube-logo:hover {
-  opacity: 0.8;
-}
-
-#facebook:hover,
-#linkdin:hover {
-  opacity: 0.5;
-
-}
-
-/* #header1
-  {
-    /* background-color: #C62128; */
-/* background: linear-gradient(270deg, rgba(204,49,0,1) 15%, rgba(224,137,88,1) 95%); 
-  } */
-#c1 {
-  color: #C62128;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* background: linear-gradient(270deg, rgba(204,49,0,1) 15%, rgba(224,137,88,1) 95%); */
-}
-
-#c1 a {
-  text-decoration: none;
-  font-weight: 500;
-  font-size: medium;
-}
-
-#c1 a:hover {
-  color: #C62128;
-}
-
-#c1 p {
-  font-weight: 500;
-}
-
-
-footer {
-  opacity: 70%;
-  margin-top: 10%;
-}
+/* Footer styles */
 
 .footer-icon {
   width: 30px;
@@ -177,6 +137,7 @@ footer {
   opacity: 90%;
 }
 
+/* Center3 styles */
 
 .center3 div {
   color: #C62128;
@@ -187,3 +148,41 @@ footer {
   margin-right: 20px;
 }
 
+/* Responsive adjustments */
+
+@media only screen and (max-width: 768px) {
+  #jumbotron {
+    width: 100%;
+  }
+
+  #overlay-text {
+    padding: 1em;
+    margin-top: -0.4em;
+  }
+
+  #title {
+    font-size: 2em;
+    padding-right: 0.3em;
+  }
+
+  #subtitle {
+    font-size: 1.5em;
+    padding-left: 0.3em;
+  }
+
+  .center3 div {
+    font-size: 1.5vw;
+  }
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+  #jumbotron {
+    width: 90%;
+  }
+}
+
+@media only screen and (min-width: 1025px) {
+  #jumbotron {
+    width: 80%;
+  }
+}

@@ -94,6 +94,9 @@ import { ContactUsComponent } from './Navbar/contact-us/contact-us.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import * as path from 'path';
 import { ConfirmPasswordComponent } from './forgot-password/confirm-password/confirm-password.component';
+import { Dugc1Component } from './labmain/dugc1/dugc1.component';
+import { ChartComponent } from './labmain/chart/chart.component';
+import { SingleComponent } from './labmain/single/single.component';
 
 const routes: Routes = [
   { path: 'loginMain', component: DugcLoginComponent },
@@ -174,12 +177,13 @@ const routes: Routes = [
       { path: 'upload5', component: Upload5Component },
       { path: 'upload7', component: Upload7Component },
       { path: 'sem8', component: Sem8Component },
+      { path:'chart', component:ChartComponent},
       {path:'coordinator1',
         component:CoordinatorComponent,
         children: [
         {
           path: 'singleSheet',
-          component: SingleSheetUploadComponent,
+          component: SingleComponent,
         },
         {
           path: 'consolidatedUpload',
@@ -194,7 +198,7 @@ const routes: Routes = [
           component: UploadResultComponent,
         },
       ]},
-      {path:'dugcChairman',component:DugcChairmanComponent},
+      {path:'dugcChairman',component:Dugc1Component},
       { path: '', redirectTo: '/Labmain/home', pathMatch: 'full' },
     ],
   },

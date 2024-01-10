@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DugcComponent } from './dugc.component';
+import { Dugc1Component } from './dugc1.component';
 
-describe('DugcComponent', () => {
-  let component: DugcComponent;
-  let fixture: ComponentFixture<DugcComponent>;
+describe('Dugc1Component', () => {
+  let component: Dugc1Component;
+  let fixture: ComponentFixture<Dugc1Component>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DugcComponent ]
+      declarations: [ Dugc1Component ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DugcComponent);
+    fixture = TestBed.createComponent(Dugc1Component);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
