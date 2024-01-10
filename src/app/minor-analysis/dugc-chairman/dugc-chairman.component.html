@@ -63,6 +63,22 @@
                         required="" [(ngModel)]="inp.course_name">
                 </div>
             </div>
+            <!-- Inside your form-input div, add the new dropdown section -->
+
+            <div class="input-section">
+                <div class="input-section-title">
+                <label for="courseType">Choose the course Type:</label>
+                </div>
+                <div class="input-section-content">
+                <select id="courseType" name="courseType" [(ngModel)]="inp.courseType">
+                    <option disabled value="" [selected]="true"></option>
+                    <option value="THEORY">Theory</option>
+                    <option value="LAB_8020">Lab (80:20)</option>
+                    <option value="LAB_100">Lab (100)</option>
+                </select>
+                </div>
+            </div>
+  
             <div class="input-section">
                 <div class="input-section-title">
                     <label for="course_code">Enter the credits :</label>

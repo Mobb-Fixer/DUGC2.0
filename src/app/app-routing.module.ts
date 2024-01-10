@@ -97,6 +97,7 @@ import { ConfirmPasswordComponent } from './forgot-password/confirm-password/con
 import { Dugc1Component } from './labmain/dugc1/dugc1.component';
 import { ChartComponent } from './labmain/chart/chart.component';
 import { SingleComponent } from './labmain/single/single.component';
+import { CoordComponent } from './labmain/coord/coord.component';
 
 const routes: Routes = [
   { path: 'loginMain', component: DugcLoginComponent },
@@ -179,11 +180,11 @@ const routes: Routes = [
       { path: 'sem8', component: Sem8Component },
       { path:'chart', component:ChartComponent},
       {path:'coordinator1',
-        component:CoordinatorComponent,
+        component:CoordComponent,
         children: [
         {
           path: 'singleSheet',
-          component: SingleComponent,
+          component: SingleSheetUploadComponent,
         },
         {
           path: 'consolidatedUpload',

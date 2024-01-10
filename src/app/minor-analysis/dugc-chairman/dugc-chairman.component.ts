@@ -20,6 +20,7 @@ export class DugcChairmanComponent implements OnInit {
     cred1: '',
     cred2: '',
     cred3: '',
+    courseType: '',
   };
   courses: any = {};
   course_codes: any = [];
