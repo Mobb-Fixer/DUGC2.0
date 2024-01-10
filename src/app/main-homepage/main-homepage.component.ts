@@ -19,6 +19,7 @@ export class MainHomepageComponent implements OnInit {
     this.router.navigate(['/loginMain']);
     this.showLoginForm=false;
     this.alert=true;
+    
   }
 
   ngOnInit(): void {

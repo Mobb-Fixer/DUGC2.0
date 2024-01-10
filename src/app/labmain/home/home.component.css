@@ -1,4 +1,4 @@
-.form {
+/* .form {
   margin-top: 1em;
   margin-left: 1em;
   margin-right: 2.2em;
@@ -136,4 +136,44 @@ h2{
 
 #year{
   width: 26%;
+} */
+
+
+.nav-options1 {
+  
+  margin-top: 1em;
+  margin-bottom: 5em;
+  border: none;
+  width: 600px;
+  height: 1em;
+  margin-left: 23em;
+  height: 30px;
+
+}
+
+.nav-op1 {
+  padding: 0.4em 1.1em;
+  border: 0.1em solid #c62128;
+  border-radius: 0.5em;
+  margin-top: 0.2em;
+  font-weight: 600;
+  color: #636363;
+  letter-spacing: -0.03em;
+  transition: 0.6s;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  float: left;
+  width: 30%;
+}
+
+.nav-op1:hover,.nav-op4:hover {
+  cursor: pointer;
+  transition: 0.6s;
+  color: #ffffff;
+  background-color: #c62128;
+}
+
+.nav-op1:first-of-type {
+  margin-left: 50px;
 }

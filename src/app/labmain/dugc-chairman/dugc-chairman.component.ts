@@ -87,7 +87,7 @@ export class DugcChairmanComponent implements OnInit {
   }
   resetForm(): void {
     this.inp = {
-      academic_year: '2022-23',
+      academic_year: '2023-24',
       sem_type: '',
       semester: '',
       course: '',

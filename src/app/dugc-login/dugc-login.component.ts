@@ -3,6 +3,8 @@ import { AuthMainService } from '../auth-main.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
+
+
 @Component({
   selector: 'app-dugc-login',
   templateUrl: './dugc-login.component.html',
@@ -18,13 +20,6 @@ export class DugcLoginComponent implements OnInit {
   userdata: any;
   public userMail = '';
   public userMail1 = '';
-
-  showLoginForm: boolean = true; // Initially, show the login form
-
-  toggleForm() {
-    this.router.navigate(['/forgot-password']);
-    this.showLoginForm = false;
-  }
 
   // onCLickLoginHome() {
   //   if (this.userMail == 'dugc@123') {

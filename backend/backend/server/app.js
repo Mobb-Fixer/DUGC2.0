@@ -160,7 +160,7 @@ app.get("/filemanager/browse%5C:addr", (req, res) => {
 });
 
 app.post("/upload_sheets",securityHandler.isFacultyCord ,(req, res) => {
-  let this_year = "2022-23";
+  let this_year = "2023-24";
   const { academic_year, sem_type, semester, course, exam, section, filename } =
     req.body;
   console.log("Result => ", req.body);
@@ -367,7 +367,7 @@ app.use(express.json());
 
 app.post('/uploadEmail', uploader1.single('filename'), async (req, res) => {
 
-  console.log(req.body);
+  console.log(req.file);
   const filename = "download (4).pdf";
   // const filename = req.body.filename;
   const filePath = path.join(__dirname, 'emailFile', filename);
@@ -439,7 +439,7 @@ sendEmailsSequentially();
 
 
 app.post("/upload_multiple_sheets",securityHandler.isFacultyCord, (req, res) => {
-  let this_year = "2022-23";
+  let this_year = "2023-24";
   const { academic_year, sem_type, semester, course, exam, filename } =
     req.body;
   console.log("Result => ", req.body);
@@ -824,7 +824,7 @@ const getTotalScore = function (
   return score;
 };
 app.get("/delete_sheet", (req, res) => {
-  let this_year = "2022-23";
+  let this_year = "2023-24";
   let exam_index = 0;
   let { academic_year, semester, course, exam, section } = req.query;
 
@@ -845,7 +845,7 @@ app.get("/delete_sheet", (req, res) => {
   });
 });
 app.get("/dugc", (req, res) => {
-  let this_year = "2022-23";
+  let this_year = "2023-24";
   let exam_index = 0;
   let { sem_type, semester, exam } = req.query;
   let new_data = data_file;
