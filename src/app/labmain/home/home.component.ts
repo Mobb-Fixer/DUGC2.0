@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthMainService } from 'src/app/auth-main.service';
+
 
 @Component({
   selector: 'app-home',
@@ -7,21 +9,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  year: string = '';
-  Sem: string = '';
-  Div: string = '';
-
-  ngOnInit(): void {}
-
-  myFun() {
-    if (this.year == '2021'|| this.year == '2020') {
-      this.pr.navigate(['/Labmain/upload']);
-    }
-    else if (this.Sem == '8') this.pr.navigate(['/Labmain/sem8']);
-    else if (this.year == '2022') this.pr.navigate(['/Labmain/upload']);
-    else {
-      this.pr.navigate(['/Labmain/home']);
-    }
+  constructor(private authService: AuthMainService) {}
+  thisPage = '';
+  userType: any = '';
+  ngOnInit(): void {
+    this.userType = this.authService.getUserType();
   }
-  constructor(private pr: Router) {}
 }

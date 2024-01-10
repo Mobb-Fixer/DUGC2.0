@@ -160,7 +160,7 @@ app.get("/filemanager/browse%5C:addr", (req, res) => {
 });
 
 app.post("/upload_sheets",securityHandler.isFacultyCord ,(req, res) => {
-  let this_year = "2022-23";
+  let this_year = "2023-24";
   const { academic_year, sem_type, semester, course, exam, section, filename } =
     req.body;
   console.log("Result => ", req.body);
@@ -332,8 +332,114 @@ app.get("/getTheoryBySem/:sem", async (req, res) => {
   }
 });
 
+
+// const nodemailer = require('nodemailer');
+
+const email1 = 'ktestkle@gmail.com';
+const password1 = 'uhebyppldnazdhsz';
+
+const transporter1 = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: email1,
+    pass: password1,
+  },
+});
+
+
+ var storageEmail = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./emailFile");
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+
+const uploader1 = multer({ storage: storageEmail });
+
+app.post(
+  "/upload_Email",
+  uploader1.single("filename"),
+  uploadFiles
+);
+app.use(express.json());
+
+app.post('/uploadEmail', uploader1.single('filename'), async (req, res) => {
+
+  console.log(req.file);
+  const filename = "download (4).pdf";
+  // const filename = req.body.filename;
+  const filePath = path.join(__dirname, 'emailFile', filename);
+  const text = req.body.message;
+
+  // Read the file from the folder
+  const fileContent = fs.readFileSync(filePath);
+
+  // Assuming 'email' is defined somewhere in your code
+  const mailOptions = {
+    from: email1,
+    text,
+    attachments: [
+      {
+        filename: filename,
+        content: fileContent,
+      },
+    ],
+  };
+
+ const sendEmail = async (options) => {
+  try {
+    await transporter.sendMail(options);
+    console.log(`Email sent successfully to ${options.to}`);
+  } catch (error) {
+    console.error(`Error sending email to ${options.to}:`, error.message);
+  }
+};
+
+// Function to generate email addresses based on a pattern
+const generateEmails = (prefix, start, end, suffix) => {
+  const emails = [];
+  for (let i = start; i <= end; i++) {
+    const paddedIndex = i.toString().padStart(3, '0');
+    const email = `${prefix}${paddedIndex}${suffix}`;
+    emails.push(email);
+  }
+  return emails;
+};
+
+// Replace '01fe21bcs' and 'example.kletech.ac.in' with your desired pattern
+const prefix = '01fe21bcs';
+const suffix = '@kletech.ac.in';
+
+// Specify the range of email indices you want to send
+const startIdx = 284;
+const endIdx = 288; // For testing, reduce the range to a smaller number
+
+// Generate the list of target email addresses
+const targetEmails = generateEmails(prefix, startIdx, endIdx, suffix);
+
+// Function to introduce a delay
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// Send emails to each target address with a delay
+const sendEmailsSequentially = async () => {
+  for (const to of targetEmails) {
+    mailOptions.to = to;
+
+    await sendEmail(mailOptions);
+    await delay(200); 
+  }
+};
+
+// Start sending emails
+sendEmailsSequentially();
+});
+
+
+
 app.post("/upload_multiple_sheets",securityHandler.isFacultyCord, (req, res) => {
-  let this_year = "2022-23";
+  let this_year = "2023-24";
   const { academic_year, sem_type, semester, course, exam, filename } =
     req.body;
   console.log("Result => ", req.body);
@@ -718,7 +824,7 @@ const getTotalScore = function (
   return score;
 };
 app.get("/delete_sheet", (req, res) => {
-  let this_year = "2022-23";
+  let this_year = "2023-24";
   let exam_index = 0;
   let { academic_year, semester, course, exam, section } = req.query;
 
@@ -739,7 +845,7 @@ app.get("/delete_sheet", (req, res) => {
   });
 });
 app.get("/dugc", (req, res) => {
-  let this_year = "2022-23";
+  let this_year = "2023-24";
   let exam_index = 0;
   let { sem_type, semester, exam } = req.query;
   let new_data = data_file;

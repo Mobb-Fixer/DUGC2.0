@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { ChildrenOutletContexts, RouterModule, Routes } from '@angular/router';
 import { MinorAnalysisMainComponent } from './minor-analysis/minor-analysis-main/minor-analysis-main.component';
 import { NavbarComponent } from './minor-analysis/navbar/navbar.component';
@@ -45,7 +45,7 @@ import { MintsComponent } from './circular/mints/mints.component';
 import { NoticeComponent } from './circular/notice/notice.component';
 import { LayoutComponent } from './circular/layout/layout.component';
 import { AuthService } from './circular/auth.service';
-import { materialize } from 'rxjs';
+import { combineLatest, materialize } from 'rxjs';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CmmComponent } from './circular/cmm/cmm.component';
 import { CamComponent } from './circular/cam/cam.component';
@@ -92,6 +92,8 @@ import { MembersComponentComponent } from './Navbar/members-component/members-co
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ContactUsComponent } from './Navbar/contact-us/contact-us.component';
 import { AddUserComponent } from './add-user/add-user.component';
+import * as path from 'path';
+import { ConfirmPasswordComponent } from './forgot-password/confirm-password/confirm-password.component';
 
 const routes: Routes = [
   { path: 'loginMain', component: DugcLoginComponent },
@@ -100,6 +102,8 @@ const routes: Routes = [
   {path:'members-component',component:MembersComponentComponent},
   {path:'forget-password',component:ForgotPasswordComponent},
   {path:'contact',component:ContactUsComponent},
+  {path:'forget-pass',component:ForgotPasswordComponent},
+  {path:'confirmPass',component:ConfirmPasswordComponent},
   {
     path: 'homeMain',
     component: MainHomepageComponent,
@@ -170,6 +174,9 @@ const routes: Routes = [
       { path: 'upload5', component: Upload5Component },
       { path: 'upload7', component: Upload7Component },
       { path: 'sem8', component: Sem8Component },
+      {path:'coordinator',component:CoordinatorComponent},
+      {path:'dugcChairman',component:DugcChairmanComponent},
+      {path:'singleUpload',component:SingleSheetUploadComponent},
       { path: '', redirectTo: '/Labmain/home', pathMatch: 'full' },
     ],
   },
@@ -241,6 +248,7 @@ const routes: Routes = [
   },
   { path: '', component: MainHomepageComponent },
   { path: '**', component: PagenotfoundComponent },
+ 
 ];
 
 @NgModule({
