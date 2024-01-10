@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeComponent } from './home/home.component';
+import { AuthMainService } from 'src/app/auth-main.service';
+
+
+
 @Component({
   selector: 'app-labmain',
   templateUrl: './labmain.component.html',
@@ -7,9 +11,11 @@ import { HomeComponent } from './home/home.component';
 })
 export class LabmainComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private authService: AuthMainService) {}
+  thisPage = '';
+  userType: any = '';
   ngOnInit(): void {
+    this.userType = this.authService.getUserType();
   }
 
 }

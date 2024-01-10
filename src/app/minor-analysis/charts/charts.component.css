@@ -2,12 +2,11 @@
   letter-spacing: -0.035em;
 }
 
-
 #printButton {
   padding: 0.4em 0.4em;
   border: 0.15em solid #C62128;
   border-radius: 0.5em;
-  margin: 0em 40em;
+  margin: 0em 1em; /* Adjusted margin for all resolutions */
   font-weight: 600;
   color: #636363;
   letter-spacing: -0.03em;
@@ -16,23 +15,50 @@
   width: 120px;
 }
 
-#printButton:hover {
-  cursor: pointer;
-  transition: 0.6s;
-  color: #ffffff;
-  background-color: #C62128;
+@media only screen and (min-width: 768px) {
+  /* Adjustments for medium-sized screens (tablets) */
+  #printButton {
+    margin: 0em 10em;
+  }
+
+  .chart-row {
+    margin-left: 2em;
+  }
+
+  .title,
+  .subtitle {
+    margin-left: 1em;
+  }
+
+  .table-analysis {
+    margin-left: 10%;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  /* Adjustments for large screens (desktops) */
+  #printButton {
+    margin: 0em 20em;
+  }
+
+  .chart-row {
+    margin-left: 5em;
+  }
+
+  .title,
+  .subtitle {
+    margin-left: 5em;
+  }
+
+  .table-analysis {
+    margin-left: 20%;
+  }
 }
 
 .container {
   margin: 0em 1em;
 }
 
-/* table,
-th,
-td {
-  border: 1px solid black;
-  text-align: center;
-} */
 table,
 td,
 th {
@@ -56,7 +82,6 @@ th {
   display: flex;
   flex-direction: row;
   margin-bottom: 2em;
-  margin-left: 22em;
 }
 
 .chart-row div:first-of-type {
@@ -66,7 +91,7 @@ th {
 .title {
   font-weight: 700;
   color: #636363;
-  margin-left: 10em;
+  margin-left: 1em;
   justify-content: center;
   display: flex;
 }
@@ -78,7 +103,7 @@ th {
 .subtitle {
   font-weight: 500;
   color: #636363;
-  margin-left: 10em;
+  margin-left: 1em;
   justify-content: center;
   display: flex;
 }
@@ -87,8 +112,6 @@ th {
   font-weight: 700 !important;
 }
 
-.table-analysis{
-  margin-left: 30%;
-  display: flex;
-  justify-content: center;
+.table-analysis {
+  margin-left: 10%;
 }

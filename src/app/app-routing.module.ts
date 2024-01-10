@@ -174,9 +174,27 @@ const routes: Routes = [
       { path: 'upload5', component: Upload5Component },
       { path: 'upload7', component: Upload7Component },
       { path: 'sem8', component: Sem8Component },
-      {path:'coordinator',component:CoordinatorComponent},
+      {path:'coordinator1',
+        component:CoordinatorComponent,
+        children: [
+        {
+          path: 'singleSheet',
+          component: SingleSheetUploadComponent,
+        },
+        {
+          path: 'consolidatedUpload',
+          component: ConsolidatedSheetUploadComponent,
+        },
+        {
+          path: 'deleteDel',
+          component: DeleteSheetComponent,
+        },
+        {
+          path: 'upload_statusUpload',
+          component: UploadResultComponent,
+        },
+      ]},
       {path:'dugcChairman',component:DugcChairmanComponent},
-      {path:'singleUpload',component:SingleSheetUploadComponent},
       { path: '', redirectTo: '/Labmain/home', pathMatch: 'full' },
     ],
   },

@@ -19,6 +19,44 @@
             Add User</div>
       </div>
 </div>
+
+<div class="nav-container">
+  <div class="nav-options1">
+    <!-- CourseCoordinator buttons -->
+    <div *ngIf="userType =='CourseCoordinator'" style="margin-left: 10em;">
+        <div class="nav-op1" routerLink="/Labmain/coordinator1" [routerLinkActive]="['selected-option']">
+            Upload Lab sheet
+        </div>
+        <a href="http://localhost:3000/filemanager" target="_self">
+            <div class="nav-op1" style="margin-left: 20px;">
+                View Excel Sheets
+            </div>
+        </a>
+    </div>
+
+    
+
+    <!-- DUGCCoordinator buttons -->
+    <div *ngIf="userType =='DUGCCoordinator'">
+        <div class=" nav-op3" routerLink="/Minor/dugc"  [routerLinkActive]="['selected-option']">
+            View ISA Analysis
+        </div>
+    </div>
+
+    <!-- DUGCChairman buttons -->
+    <div *ngIf="userType =='DUGCChairman'" class="chairman">
+        <div class=" nav-op2" routerLink="/Labmain/dugcChairman" style="float: left;" [routerLinkActive]="['selected-option']">
+            View Lab Analysis
+        </div>
+        <a href="http://localhost:3000/filemanager" target="_self" class="nav-op2" style="margin-left: 2%;">
+            <div>
+                View Excel Sheets
+            </div>
+        </a>
+    </div>
+</div>
+
+</div>
 <div class="container">
     <router-outlet></router-outlet>
 </div>

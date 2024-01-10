@@ -102,7 +102,6 @@ import { HomeNavbarComponent } from './Navbar/home-navbar/home-navbar.component'
 import { MembersComponentComponent } from './Navbar/members-component/members-component.component';
 import { ContactUsComponent } from './Navbar/contact-us/contact-us.component';
 import { AddUserComponent } from './add-user/add-user.component';
-import { LabMainHomeComponent } from './LabComponent/lab-main-home/lab-main-home.component';
 import { ConfirmPasswordComponent } from './forgot-password/confirm-password/confirm-password.component';
 
 
@@ -188,7 +187,6 @@ import { ConfirmPasswordComponent } from './forgot-password/confirm-password/con
     ContactUsComponent,
     LabmainComponent,
     AddUserComponent,
-    LabMainHomeComponent,
     ConfirmPasswordComponent,
   ],
   imports: [
