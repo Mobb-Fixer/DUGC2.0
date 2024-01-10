@@ -13,10 +13,13 @@
     Eligibility</div>
   <div class="nav-op" routerLink="/makeup" [routerLinkActive]="['selected-option']">
     Makeup Minor</div>
-  <div class="nav-op" routerLink="/add-user" [routerLinkActive]="['selected-option']">
-    Add User</div>
-
+  <!-- <div class="nav-op" routerLink="/add-user" [routerLinkActive]="['selected-option']">
+    Add User</div> -->
+    <div class="nav-op" routerLink="/add-user" [routerLinkActive]="['selected-option']" *ngIf="userType =='DUGCChairman'">
+        Add User</div>
 </div>
+
+
 <app-navbar-withdrawal></app-navbar-withdrawal>
 <div class="container">
     <router-outlet></router-outlet>

@@ -103,6 +103,9 @@ import { MembersComponentComponent } from './Navbar/members-component/members-co
 import { ContactUsComponent } from './Navbar/contact-us/contact-us.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { ConfirmPasswordComponent } from './forgot-password/confirm-password/confirm-password.component';
+import { Dugc1Component } from './labmain/dugc1/dugc1.component';
+import { ChartComponent } from './labmain/chart/chart.component';
+import { SingleComponent } from './labmain/single/single.component';
 
 
 @NgModule({
@@ -188,6 +191,9 @@ import { ConfirmPasswordComponent } from './forgot-password/confirm-password/con
     LabmainComponent,
     AddUserComponent,
     ConfirmPasswordComponent,
+    Dugc1Component,
+    ChartComponent,
+    SingleComponent,
   ],
   imports: [
     FlexLayoutModule,

@@ -15,9 +15,11 @@
           Eligibility</div>
         <div class="nav-op" routerLink="/makeup" [routerLinkActive]="['selected-option']">
           Makeup Minor</div>
-          <div class="nav-op" routerLink="/add-user" [routerLinkActive]="['selected-option']">
+          <!-- <div class="nav-op" routerLink="/add-user" [routerLinkActive]="['selected-option']">
             Add User</div>
-      </div>
+      </div> -->
+      <div class="nav-op" routerLink="/add-user" [routerLinkActive]="['selected-option']" *ngIf="userType =='DUGCChairman'">
+          Add User</div>
 </div>
 
 <div class="nav-container">
@@ -38,7 +40,7 @@
 
     <!-- DUGCCoordinator buttons -->
     <div *ngIf="userType =='DUGCCoordinator'">
-        <div class=" nav-op3" routerLink="/Minor/dugc"  [routerLinkActive]="['selected-option']">
+        <div class=" nav-op3" routerLink="/Labmain/dugcChairman"  [routerLinkActive]="['selected-option']">
             View ISA Analysis
         </div>
     </div>
