@@ -13,10 +13,21 @@ export class AuthMainService {
   private Loginurl = 'http://localhost:3000/auth/login';
   private registerurl = 'http://localhost:3000/auth/register';
   private addUserUrl = 'http://localhost:3000/auth/addUser';
+  private ConfirmPassUrl = 'http://localhost:3000/auth/reset-password';
+  private SendResetEmailUrl = 'http://localhost:3000/auth/forgot-password';
+
   constructor(private http: HttpClient, private route: Router) {}
 
   LoginUser(user: any) {
     return this.http.post(this.Loginurl, user, { withCredentials: true });
+  }
+
+  SendResetEmailService(email: any) {
+    return this.http.post(this.SendResetEmailUrl, email, {withCredentials: true})
+  }
+
+  ChangePassword(passes: any) {
+    return this.http.post(this.ConfirmPassUrl, passes, {withCredentials: true})
   }
 
   AddUser(user: any) {

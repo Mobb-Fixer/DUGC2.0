@@ -1,34 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthMainService } from '../auth-main.service';
 import { ToastrService } from 'ngx-toastr';
+import { AuthMainService } from 'src/app/auth-main.service';
 
 @Component({
-  selector: 'app-forgot-password',
-  templateUrl: './forgot-password.component.html',
-  styleUrls: ['./forgot-password.component.css']
+  selector: 'app-confirm-pass',
+  templateUrl: './confirm-pass.component.html',
+  styleUrls: ['./confirm-pass.component.css']
 })
-
-export class ForgotPasswordComponent implements OnInit {
+export class ConfirmPassComponent implements OnInit {
   constructor(
     private auth: AuthMainService,
     private router: Router,
     private toast: ToastrService
   ) {}
 
-  sendResetData = {
+  confirmPassData = {
+    token: '',
     email: '',
+    password: '',
+    confirmpassword: ''
   };
 
   ngOnInit(): void {}
 
-  sendResetEmail(e: any) {
-    console.log(this.sendResetData);
+  confirmPassword(e: any) {
+    console.log(this.confirmPassData);
 
-    this.auth.SendResetEmailService(this.sendResetData).subscribe(
+    this.auth.ChangePassword(this.confirmPassData).subscribe(
       (res) => {
         console.log(res);
-        this.toast.success('Email sent successfully');
+        this.toast.success('Password changed successfully');
         this.router.navigate(['/Minor']);
       },
       (err) => {

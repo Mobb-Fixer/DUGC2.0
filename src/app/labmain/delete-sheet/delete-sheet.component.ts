@@ -15,7 +15,7 @@ export class DeleteSheetComponent implements OnInit {
     private toastr: ToastrService
   ) { }
   inp: any = {
-    academic_year: '2022-23',
+    academic_year: '2023-24',
     semester: '',
     course: '',
     exam: '',
@@ -76,7 +76,7 @@ export class DeleteSheetComponent implements OnInit {
   }
   resetForm(): void {
     this.inp = {
-      academic_year: '2022-23',
+      academic_year: '2023-24',
       semester: '',
       course: '',
       exam: '',

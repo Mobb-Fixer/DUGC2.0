@@ -2,6 +2,9 @@ const { sendCookie } = require("../helpers/cookieHandler");
 const userModel = require("../models/user");
 const bcrypt = require("bcrypt");
 const { ErrorHandler } = require("../middlewares/errorHandler.js");
+const Randomstring = require("randomstring");
+const nodemailer = require("nodemailer");
+
 
 const registerController = async (req, res, next) => {
   try {
@@ -75,11 +78,22 @@ const loginController = async (req, res, next) => {
     const adminData = Object.assign({}, user.toObject());
     delete adminData.password;
 
-    // sendCookie(adminData, res, "Welcome back", 201);
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "414vpu2alwynfernandes@gmail.com",
+        pass: "xhpiiamkxmarjbhu",
+      },
+    });
 
-    // if (password !== user.password) {
-    //   return next(new ErrorHandler("Invalid Email or Password Entered", 404));
-    // }
+    const info = await transporter.sendMail({
+      from: "414vpu2alwynfernandes@gmail.com",
+      to: email, // Replace with the recipient's email address
+      subject: "Login detected",
+      text: "Login detected, if it was not you, please change password",
+    });
+
+    console.log("Message sent: " + info.messageId);
 
     sendCookie(adminData, res, "Welcome back", 201);
   } catch (error) {
@@ -87,4 +101,95 @@ const loginController = async (req, res, next) => {
   }
 };
 
-module.exports = { registerController, loginController };
+const sendResetController = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+console.log(email)
+    const isUserExist = await userModel.findOne({ email: email });
+    if (!isUserExist) {
+      return next(new ErrorHandler("User doesn't exist!", 400));
+    }
+    console.log(isUserExist);
+
+    const randomString = Randomstring.generate();
+    const currentDate = new Date();
+    const expiresAt = new Date(currentDate.getTime() + 60 * 60 * 1000); // Expire link in 1 hour
+
+    isUserExist.token = {
+      tokenId: randomString,
+      expiresAt,
+    };
+
+    await isUserExist.save();
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "414vpu2alwynfernandes@gmail.com",
+        pass: "xhpiiamkxmarjbhu",
+      },
+    });
+
+    const info = await transporter.sendMail({
+      from: "414vpu2alwynfernandes@gmail.com",
+      to: email, // Replace with the recipient's email address
+      subject: "Password Change Request",
+      text: `Password request token: ${randomString}. Click on this link to change password: http://localhost:4200/loginMain`,
+    });
+
+    console.log("Message sent: " + info.messageId);
+
+    res.status(200).send({
+      success: true,
+      message: "Please check your inbox for mail and reset your password.",
+    });
+  } catch (error) {
+    res.status(400).send({ success: false, message: error.message });
+  }
+};
+
+const resetPassword = async (req, res) => {
+  try {
+    const { token, email, password, confirmpassword } = req.body;
+    const userWithToken = await userModel.findOne({
+      "token.tokenId": token,
+    });
+
+    if (!userWithToken) {
+      res.status(400).send({
+        success: false,
+        message: "User does not exist or invalid link. Try again",
+      });
+      return;
+    }
+
+    if (userWithToken.token.expiresAt < new Date()) {
+      res
+        .status(400)
+        .send({ success: false, message: "This link has expired" });
+      return;
+    }
+
+    const newPassword = await bcrypt.hash(password, 10);
+
+    userWithToken.password = newPassword;
+    userWithToken.token = {}; // Clear the token data
+
+    const userData = await userWithToken.save();
+
+    res.status(200).send({
+      success: true,
+      message: "User password has been reset",
+      data: userData,
+    });
+  } catch (error) {
+    res.status(400).send({ success: false, message: error.message });
+  }
+};
+
+module.exports = {
+  registerController,
+  loginController,
+  sendResetController,
+  resetPassword,
+};

@@ -19,12 +19,7 @@ export class DugcLoginComponent implements OnInit {
   public userMail = '';
   public userMail1 = '';
 
-  showLoginForm: boolean = true; // Initially, show the login form
-
-  toggleForm() {
-    this.router.navigate(['/forgot-password']);
-    this.showLoginForm = false;
-  }
+  
 
   // onCLickLoginHome() {
   //   if (this.userMail == 'dugc@123') {

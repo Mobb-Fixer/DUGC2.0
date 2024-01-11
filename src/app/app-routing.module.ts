@@ -92,13 +92,15 @@ import { MembersComponentComponent } from './Navbar/members-component/members-co
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ContactUsComponent } from './Navbar/contact-us/contact-us.component';
 import { AddUserComponent } from './add-user/add-user.component';
+import { ConfirmPassComponent } from './forgot-password/confirm-pass/confirm-pass.component';
 
 const routes: Routes = [
   { path: 'loginMain', component: DugcLoginComponent },
   { path: 'registerMain', component: DugcRegisterComponent },
   {path:'aboutUs',component:AboutUsComponent  },
   {path:'members-component',component:MembersComponentComponent},
-  {path:'forget-password',component:ForgotPasswordComponent},
+  {path:'forget',component:ForgotPasswordComponent},
+  {path:'confirm',component:ConfirmPassComponent},
   {path:'contact',component:ContactUsComponent},
   {
     path: 'homeMain',

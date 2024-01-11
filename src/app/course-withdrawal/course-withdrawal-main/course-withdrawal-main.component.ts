@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WithdrawalNavbarComponent } from '../navbar/navbar.component';
+import { AuthMainService } from 'src/app/auth-main.service';
+
 
 @Component({
   selector: 'app-course-withdrawal-main',
@@ -7,7 +9,10 @@ import { WithdrawalNavbarComponent } from '../navbar/navbar.component';
   styleUrls: ['./course-withdrawal-main.component.css'],
 })
 export class CourseWithdrawalMainComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
+  constructor(private authService: AuthMainService) {}
+  thisPage = '';
+  userType: any = '';
+  ngOnInit(): void {
+    this.userType = this.authService.getUserType();
+  }
 }

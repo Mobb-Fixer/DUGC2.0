@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthMainService } from 'src/app/auth-main.service';
+
 
 @Component({
   selector: 'app-minor-main',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MinorMainComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private authService: AuthMainService) {}
+  thisPage = '';
+  userType: any = '';
   ngOnInit(): void {
+    this.userType = this.authService.getUserType();
   }
 
 }

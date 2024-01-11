@@ -102,6 +102,8 @@ import { HomeNavbarComponent } from './Navbar/home-navbar/home-navbar.component'
 import { MembersComponentComponent } from './Navbar/members-component/members-component.component';
 import { ContactUsComponent } from './Navbar/contact-us/contact-us.component';
 import { AddUserComponent } from './add-user/add-user.component';
+import { ConfirmPassComponent } from './forgot-password/confirm-pass/confirm-pass.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 
 @NgModule({
@@ -186,6 +188,8 @@ import { AddUserComponent } from './add-user/add-user.component';
     ContactUsComponent,
     LabmainComponent,
     AddUserComponent,
+    ConfirmPassComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     FlexLayoutModule,
@@ -197,6 +201,7 @@ import { AddUserComponent } from './add-user/add-user.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),

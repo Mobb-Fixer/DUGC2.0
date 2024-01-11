@@ -8,6 +8,8 @@ const Middleware = require("../middlewares/securityHandler.js");
 const {
   loginController,
   registerController,
+  sendResetController,
+  resetPassword,
 } = require("../controllers/authController.js");
 
 const AuthMiddleware = new Middleware();
@@ -83,4 +85,6 @@ router.get("/allusers", function (req, res, next) {
 router.post("/login", loginController);
 // router.post("/register", registerController);
 router.post("/addUser", registerController);
+router.post("/forgot-password", sendResetController);
+router.post("/reset-password", resetPassword);
 module.exports = router;

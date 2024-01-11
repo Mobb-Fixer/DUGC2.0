@@ -17,8 +17,8 @@ export class ChartsComponent implements OnInit {
   previous_analysis: any = {};
   current_required_analysis: any = {};
   previous_required_analysis: any = {};
-  current_year = '2022-23';
-  previous_year = '2020-21';
+  current_year = '2023-24'
+  previous_year = '2022-23';
   sem_input: string = '';
   exam_input: string = '';
   exam_input_index: number = 0;
@@ -134,12 +134,12 @@ export class ChartsComponent implements OnInit {
           labels: xValues,
           datasets: [
             {
-              label: 'Current Year 2022-23',
+              label: 'Current Year 2023-24',
               backgroundColor: color1,
               data: this.yValues,
             },
             {
-              label: 'Previous Year 2021-22',
+              label: 'Previous Year 2022-23',
               backgroundColor: color2,
               data: this.y2Values,
             },

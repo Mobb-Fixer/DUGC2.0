@@ -13,19 +13,19 @@
       Eligibility</div>
     <div class="nav-op" routerLink="/makeup" [routerLinkActive]="['selected-option']">
       Makeup Minor</div>
-    <div class="nav-op" routerLink="/add-user" [routerLinkActive]="['selected-option']">
-      Add User</div>
+      <div class="nav-op" routerLink="/add-user" [routerLinkActive]="['selected-option']" *ngIf="userType =='DUGCChairman'">
+        Add User</div>
   
   </div>
 
 <div class="nav-container">
-    <div class="navbar1">
-            <button [routerLink]="['/eligibility/ap-list']" [routerLinkActive]="['selected-option']" type="button"
+    <div class="navbar1" style="margin-left: 55%;">
+            <!-- <button [routerLink]="['/eligibility/ap-list']" [routerLinkActive]="['selected-option']" type="button"
                 class="nav-op4 btn">Theory</button>
             <button [routerLink]="['/eligibility/lab']" [routerLinkActive]="['selected-option']" type="button"
-                class="nav-op4 btn">Lab</button>
+                class="nav-op4 btn">Lab</button> -->
             <button [routerLink]="['/eligibility/upload']" [routerLinkActive]="['selected-option']" type="button"
-                class="nav-op4 btn">upload</button>
+                class="nav-op4 btn">Ineligible list</button>
         
 
     </div>
