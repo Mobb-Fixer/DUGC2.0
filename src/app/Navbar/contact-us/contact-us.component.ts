@@ -12,7 +12,7 @@ import { ContactUsService } from '../contact-us.service';
   styleUrls: ['./contact-us.component.css']
 })
 export class ContactUsComponent implements OnInit {
-    title='downloadfile';
+  title='downloadfile';
   constructor(private service:DownloadfileService,
     private contactUsService:ContactUsService,
     private router:Router) {}

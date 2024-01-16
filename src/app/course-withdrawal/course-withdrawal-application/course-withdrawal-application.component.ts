@@ -12,7 +12,7 @@ import * as allcourses from 'backend/backend/server/data_files/courses_with_cred
   styleUrls: ['./course-withdrawal-application.component.css'],
 })
 export class CourseWithdrawalApplicationComponent implements OnInit {
- 
+
   allCourses: any = (allcourses as any).default;
   studentName: string;
   // semester: string  selectedSem
@@ -68,7 +68,7 @@ export class CourseWithdrawalApplicationComponent implements OnInit {
     this.totalCredits = 0;
     console.log(selectedSem);
 
-    this.allCourses.forEach((sem:any) => {
+    this.allCourses.forEach((sem: any) => {
       if (sem.sem == Number(selectedSem)) {
         this.selectedSemCourses = sem.courses;
       }
@@ -85,8 +85,7 @@ export class CourseWithdrawalApplicationComponent implements OnInit {
       this.totalCreditsForSem += Number(this.course.credits);
     }
     console.log(
-      `Total Credits of selected sem is ${
-        this.totalCreditsForSem
+      `Total Credits of selected sem is ${this.totalCreditsForSem
       }. And allowed is ${this.totalCreditsForSem - 16}`
     );
   }
@@ -107,8 +106,8 @@ export class CourseWithdrawalApplicationComponent implements OnInit {
     // }
 
     if (event.target.checked) {
-      console.log(`totalcreditsforsem ${this.totalCreditsForSem}`);
-      console.log(`totalcredits ${this.totalCredits}`);
+      console.log(`totalcreditsforsem ${ this.totalCreditsForSem }`);
+      console.log(`totalcredits ${ this.totalCredits }`);
       if (
         this.totalCredits + Number(course.credits) >
         this.totalCreditsForSem - 16
@@ -137,27 +136,27 @@ export class CourseWithdrawalApplicationComponent implements OnInit {
   cie: number[] = [];
   submitDetails(form: NgForm) {
 
-    if(this.studentName.length == 0 || this.srn.length == 0 || this.rno.length ==0 || this.div.length == 0 || this.selectedSem.length == 0 || this.reason.length == 0){
+    if (this.studentName.length == 0 || this.srn.length == 0 || this.rno.length == 0 || this.div.length == 0 || this.selectedSem.length == 0 || this.reason.length == 0) {
       this.toastr.error('Empty Text Fields', 'Text fields cannot be empty.');
       return
     }
 
-    if(this.selectedCourses.length == 0){
+    if (this.selectedCourses.length == 0) {
       this.toastr.error('Select Course', 'Select course(s) to withdraw.');
       return;
     }
-    for(let i = 0; i < this.selectedCourses.length; i++){
-      console.log(this.cie[i],this.attendance[i])
-      if(isNaN(this.cie[i]) || isNaN(this.attendance[i])){
+    for (let i = 0; i < this.selectedCourses.length; i++) {
+      console.log(this.cie[i], this.attendance[i])
+      if (isNaN(this.cie[i]) || isNaN(this.attendance[i])) {
         this.toastr.error('Empty CIE or Attendace', 'CIE marks or Attendance cannot be blank.');
         return;
       }
-      if(Number(this.cie[i]) <= 0){
-      this.toastr.error('Negative Input', 'CIE marks cannot be less than or equal to 0.');
+      if (Number(this.cie[i]) <= 0) {
+        this.toastr.error('Negative Input', 'CIE marks cannot be less than or equal to 0.');
         return;
       }
-      if(Number(this.attendance[i]) <= 0){
-      this.toastr.error('Negative Input', 'Attendance cannot be less than or equal to 0.');
+      if (Number(this.attendance[i]) <= 0) {
+        this.toastr.error('Negative Input', 'Attendance cannot be less than or equal to 0.');
 
         return;
       }
@@ -198,14 +197,14 @@ export class CourseWithdrawalApplicationComponent implements OnInit {
     //   alert('Details added.')
     // })
     console.log(
-      `${this.studentName} from ${this.selectedSem} semester wants to withdraw course. His SRN is ${this.srn} and his roll no is ${this.rno} belongs to ${this.div} divison. Because ${this.reason}`
+      `${ this.studentName } from ${ this.selectedSem } semester wants to withdraw course.His SRN is ${ this.srn } and his roll no is ${ this.rno } belongs to ${ this.div } divison.Because ${ this.reason }`
     );
 
     this.resetData(form)
   }
 
 
-  resetData(form:NgForm){
+  resetData(form: NgForm) {
     form.resetForm()
     this.selectedCourses = []
     this.sc = []

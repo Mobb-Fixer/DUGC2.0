@@ -1,5 +1,5 @@
 {
-    "sem3": [
+    "3": [
         {
             "code": "Graph Theory and Linear Algebra",
             "name": "15MEAB204"
@@ -27,9 +27,13 @@
         {
             "code": "Database Applications Lab",
             "name": "15ECSP204"
+        },
+        {
+            "code": "Software Engineering",
+            "name": "22ESCS203"
         }
     ],
-    "sem4": [
+    "4": [
         {
             "code": "Applied Statistics with R",
             "name": "20EMAB209"
@@ -59,7 +63,7 @@
             "name": "20ECSP203"
         }
     ],
-    "sem5": [
+    "5": [
         {
             "code": "Software Engineering",
             "name": "22ECS301"
@@ -87,9 +91,13 @@
         {
             "code": "Mini Project",
             "name": "15ECSW301"
+        },
+        {
+            "code": "app development",
+            "name": "22Ecs309"
         }
     ],
-    "sem6": [
+    "6": [
         {
             "code": "Computer Network-2",
             "name": "20ECSC303"
@@ -139,7 +147,7 @@
             "name": "21ECSE332"
         }
     ],
-    "sem7": [
+    "7": [
         {
             "code": "Bg Data and Analysis",
             "name": "17ECSC401"
@@ -173,7 +181,7 @@
             "name": "20ECSW402"
         }
     ],
-    "sem8": [
+    "8": [
         {
             "code": "DF",
             "name": "22ESD213"

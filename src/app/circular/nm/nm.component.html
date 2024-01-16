@@ -8,45 +8,41 @@
         url=http://remote.url.tld/path/to/document.doc&embedded=true "></iframe></div>
     </form>
 </h1> -->
-<!-- <br>
+<br>
 <br>
 <h2 style="color: rgb(150, 44, 44); text-align: center;">Compose an email</h2>
 <br>
-<form action="/upload_file" enctype="multipart/form-data" method="post">
-  <label for="subject">Subject:</label>
-  <input type="text" id="subject" required>
+<form action="/upload_file" enctype="multipart/form-data" method="post" class="fm1">
+  <label for="subject" class="z1" style="margin-right: 1%;">Subject: </label>
+  <input type="text" id="subject" required class="sb1" style="margin-right: 20%;">
   <br>
-  <br>
-
-  <label for="message">Message: </label>
-  <textarea id="message" required></textarea>
   <br>
   <br>
 
-  <input type="file"  accept=".pdf, .doc, .docx ,.xlsx" style="margin-left: 15%;">
+  <label for="message" class="z1" style="margin-left: 5%;">Message: </label>
+  <textarea id="message" required class="sb1" style="margin-left: 1%;" [(ngModel)]="inp2.message" ></textarea>
   <br>
   <br>
+  <br>
 
-  <button type="submit" class="abc">Send Email</button>
+  <input type="file" name="filename" (change)="onFileSelected($event)" [(ngModel)]="inp2.filename" accept=".pdf, .doc, .docx ,.xlsx" style="margin-left: 38%;">
   <br>
   <br>
-</form> -->
-
-
-
-
-<!-- app.component.html -->
-<div>
-    <h2>Email Form</h2>
-    <form (submit)="onSubmit1()">
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" [(ngModel)]="inp2.email">
+  <br>
+  <button type="submit" class="abc" (click)="onSubmit1()">Send Email</button>
   
-      <label for="message">Message:</label>
-      <textarea id="message" name="message" [(ngModel)]="inp2.message" ></textarea>
-  
-      <input type="file" name="filename" (change)="onFileSelected($event)" accept=".pdf, .doc, .docx"  [(ngModel)]="inp2.filename">
-  
-      <button type="submit">Send Email</button>
+  </form> 
+
+        <div>
+        <form><br>
+            <br><br>
+            <button style="margin-right: 10%; margin-left: 35%;" (click)="DownloadNoticeMinor()">Download the file</button> 
+        <button><a href="https://docs.google.com/document/d/1AEwhQ7uYX1FIF24BHq4Tq5Vw5PW6s_5r/edit" target="_blank">Click Here To send makeup Notice</a></button>
+        
+        <br>
+        <br>
+      <br>
+  <br>
     </form>
   </div>
+  

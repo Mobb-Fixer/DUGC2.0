@@ -36,7 +36,8 @@
   }
   
   .nav-container {
-    margin: 1em 5em;
+    /* margin: 1em 5em; */
+    margin-left: 25%;
   }
   
   .nav-options {

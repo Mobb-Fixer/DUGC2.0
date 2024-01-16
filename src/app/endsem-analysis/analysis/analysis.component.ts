@@ -29,18 +29,18 @@ export class AnalysisComponent {
 
     if (this.sem == 'sem3') {
       this.sData = this.service.getCourseData();
-      this.scheduleData = this.sData.default.sem3;
+      this.scheduleData = this.sData.sem3;
 
       //for total passing percentage
       this.pData = this.service.getTotalPassPercentage();
-      this.passData = this.pData.default.sem3;
+      this.passData = this.pData.sem3;
       this.temp.push(this.passData);
       console.log(this.passData);
 
       //for corse previous year
       this.prevCourse = this.service.getCoursePreviousData();
       // console.log("here" + this.prevCourse.default);
-      this.view = this.prevCourse.default.sem3;
+      this.view = this.prevCourse.sem3;
       console.log('here' + this.view);
 
       for (let i = 0; i < 20; i++) {
@@ -50,16 +50,16 @@ export class AnalysisComponent {
 
     if (this.sem == 'sem4') {
       this.sData = this.service.getCourseData();
-      this.scheduleData = this.sData.default.sem4;
+      this.scheduleData = this.sData.sem4;
       this.pData = this.service.getTotalPassPercentage();
-      this.passData = this.pData.default.sem4;
+      this.passData = this.pData.sem4;
       this.temp.push(this.passData);
       console.log(this.passData);
 
       //for corse previous year
       this.prevCourse = this.service.getCoursePreviousData();
       // console.log("here" + this.prevCourse.default);
-      this.view = this.prevCourse.default.sem4;
+      this.view = this.prevCourse.sem4;
       console.log('here' + this.view);
 
       for (let i = 0; i < 20; i++) {
@@ -68,15 +68,15 @@ export class AnalysisComponent {
     }
     if (this.sem == 'sem5') {
       this.sData = this.service.getCourseData();
-      this.scheduleData = this.sData.default.sem5;
+      this.scheduleData = this.sData.sem5;
       this.pData = this.service.getTotalPassPercentage();
-      this.passData = this.pData.default.sem5;
+      this.passData = this.pData.sem5;
       this.temp.push(this.passData);
       console.log(this.passData);
 
       this.prevCourse = this.service.getCoursePreviousData();
       // console.log("here" + this.prevCourse.default);
-      this.view = this.prevCourse.default.sem5;
+      this.view = this.prevCourse.sem5;
       console.log('here' + this.view);
 
       for (let i = 0; i < 20; i++) {
@@ -85,15 +85,15 @@ export class AnalysisComponent {
     }
     if (this.sem == 'sem6') {
       this.sData = this.service.getCourseData();
-      this.scheduleData = this.sData.default.sem6;
+      this.scheduleData = this.sData.sem6;
       this.pData = this.service.getTotalPassPercentage();
-      this.passData = this.pData.default.sem6;
+      this.passData = this.pData.sem6;
       this.temp.push(this.passData);
       console.log(this.passData);
 
       this.prevCourse = this.service.getCoursePreviousData();
       // console.log("here" + this.prevCourse.default);
-      this.view = this.prevCourse.default.sem6;
+      this.view = this.prevCourse.sem6;
       console.log('here' + this.view);
 
       for (let i = 0; i < 20; i++) {
@@ -103,15 +103,15 @@ export class AnalysisComponent {
 
     if (this.sem == 'sem7') {
       this.sData = this.service.getCourseData();
-      this.scheduleData = this.sData.default.sem7;
+      this.scheduleData = this.sData.sem7;
       this.pData = this.service.getTotalPassPercentage();
-      this.passData = this.pData.default.sem7;
+      this.passData = this.pData.sem7;
       this.temp.push(this.passData);
       console.log(this.passData);
 
       this.prevCourse = this.service.getCoursePreviousData();
       // console.log("here" + this.prevCourse.default);
-      this.view = this.prevCourse.default.sem7;
+      this.view = this.prevCourse.sem7;
       console.log('here' + this.view);
 
       for (let i = 0; i < 20; i++) {
@@ -120,15 +120,15 @@ export class AnalysisComponent {
     }
     if (this.sem == 'sem8') {
       this.sData = this.service.getCourseData();
-      this.scheduleData = this.sData.default.sem8;
+      this.scheduleData = this.sData.sem8;
       this.pData = this.service.getTotalPassPercentage();
-      this.passData = this.pData.default.sem8;
+      this.passData = this.pData.sem8;
       this.temp.push(this.passData);
       console.log(this.passData);
 
       this.prevCourse = this.service.getCoursePreviousData();
       // console.log("here" + this.prevCourse.default);
-      this.view = this.prevCourse.default.sem8;
+      this.view = this.prevCourse.sem8;
       console.log('here' + this.view);
 
       for (let i = 0; i < 20; i++) {
@@ -152,7 +152,7 @@ export class AnalysisComponent {
   colorstemp: any = [];
   indextemp: number = 0;
   // name = ""
-
+  
   onClick(myname: any) {
     // try{
     //   if(this.passPercentages.length == this.service.getCourseData()[this.sem].length){
@@ -406,4 +406,5 @@ export class AnalysisComponent {
       },
     });
   }
+  
 }

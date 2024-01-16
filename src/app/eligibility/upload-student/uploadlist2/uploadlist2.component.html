@@ -1,53 +1,55 @@
 <br>
-<h2 class="nav-des1">Upload Ineligible student list for courses</h2>
+<h2 class="nav-des1">Upload Ineligible student list for Theory</h2>
 <br>
 <div class="mod">
 
-      <div class="modal-content">
-        <div class="modal-header">
-        </div>
+  <div class="modal-content">
+    <div class="modal-header">
+    </div>
 
-        <form class="form-input1">
-        <div class="modal-body">
+    <form class="form-input1">
+      <div class="modal-body">
 
-          <label class="control-label" for="course">Select Sem</label>
+        <label class="control-label" for="course">Select Sem</label>
 
-          <select class="form-select mb-3" name="sem"  id="sem" [(ngModel)]="inp1.sem">
-          <option >3</option>
+        <select class="form-select mb-3" name="sem" id="sem" [(ngModel)]="inp1.sem">
+          <option>3</option>
           <option>4</option>
           <option>5</option>
-          <option >6</option>
-          <option >7</option>
+          <option>6</option>
+          <option>7</option>
           <option>8</option>
-          </select>
-          <br>
-          <br>
-
-            <!-- <input type="file" class="form-control" id="customFile" (change)="readfile($event)"/> -->
-        </div>
-        <form action="/upload_file" enctype="multipart/form-data" method="post">
-          <div class="input-section-content">
-              <input type="file" name="filename" id="filename" accept=".xls,.xlsx"
-                  (change)="this.onFilechange($event)" [(ngModel)]="inp1.filename" required>
-          </div>
-      </form>
+        </select>
+        <br>
         <br>
 
-               <div class="input-section">
-                <div class="status-message">{{statusMessage}}</div>
-            </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn" id="submit-upload" (click)="submitForm1()">
-                  <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-                  Upload
-                </button>
-                 </div>
-
-
-
-
+        <!-- <input type="file" class="form-control" id="customFile" (change)="readfile($event)"/> -->
+      </div>
+      <form action="/upload_file" enctype="multipart/form-data" method="post">
+        <div class="input-section-content">
+          <input type="file" name="filename" id="filename" accept=".xls,.xlsx" (change)="this.onFilechange($event)"
+            [(ngModel)]="inp1.filename" required>
+        </div>
       </form>
-      <!-- <form class="form-input1">
+      <br>
+
+      <div class="input-section">
+        <div class="status-message">{{statusMessage}}</div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn" id="submit-upload" (click)="submitForm1()">
+          <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+          </svg>
+          Upload
+        </button>
+      </div>
+
+
+
+
+    </form>
+    <!-- <form class="form-input1">
         <div class="modal-body">
           <label class="control-label" for="course">Select Sem</label>
           <select class="form-select mb-3" name="sem" id="sem" [(ngModel)]="inp1.sem" required>
@@ -71,11 +73,11 @@
           Retrieve Data
         </button>
       </form> -->
-      </div>
-    </div>
+  </div>
+</div>
 
-    <br>
-    <br><br><br>
+<br>
+<br><br><br>
 
 <!--
     <div class="table-responsive">

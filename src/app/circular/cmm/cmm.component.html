@@ -1,10 +1,38 @@
-<h1 align="center">
-    <form action="https://formspree.io/f/mwkzjlqj" method="POST">
-        <input type="text" name="Name" placeholder="Full Name"
-            value="https://docs.google.com/document/d/1NXycaMHSURk0ox4o4QOtFau8G0LuMbzv/edit?usp=sharing&ouid=107276873496111695545&rtpof=true&sd=true">
-        <br>
-        <div class="aaa"><a [routerLink]="['/Circular/send']"><button class="nav-op">Send</button></a></div><br><br>
-        <div class="bb"><iframe style="width:100%; height: 150%;" src="https://docs.google.com/document/d/1NXycaMHSURk0ox4o4QOtFau8G0LuMbzv/edit?usp=sharing&ouid=107276873496111695545&rtpof=true&sd=true?
-url=http://remote.url.tld/path/to/document.doc&embedded=true "></iframe></div>
-    </form>
-</h1>
+<br>
+<br>
+<h2 style="color: rgb(150, 44, 44); text-align: center;">Compose an email</h2>
+<br>
+<form action="/upload_file" enctype="multipart/form-data" method="post" class="fm1">
+  <label for="subject" class="z1" style="margin-right: 1%;">Subject: </label>
+  <input type="text" id="subject" required class="sb1" style="margin-right: 20%;">
+  <br>
+  <br>
+  <br>
+
+  <label for="message" class="z1" style="margin-left: 5%;" >Message: </label>
+  <textarea id="message" required class="sb1" style="margin-left: 1%;" [(ngModel)]="inp2.message" ></textarea>
+  <br>
+  <br>
+  <br>
+
+  <input type="file" name="filename" (change)="onFileSelected($event)" accept=".pdf, .doc, .docx ,.xlsx" style="margin-left: 35%;" [(ngModel)]="inp2.filename" >
+  <br>
+  <br>
+  <br>
+  <button type="submit" class="abc" (click)="onSubmit1()">Send Email</button>
+  
+  </form> 
+
+<div>
+  
+  <form><br>
+      <br>
+<button style="margin-right: 10%; margin-left: 35%;"(click)="downloadMakeupCircular()">Download the file</button> 
+  <button><a href="https://docs.google.com/document/d/1AEwhQ7uYX1FIF24BHq4Tq5Vw5PW6s_5r/edit" target="_blank">Click Here To send makeup circular</a></button>
+  
+  <br>
+  <br>
+<br>
+<br>
+</form>
+</div>

@@ -48,4 +48,9 @@
 #container {
   display: flex;
   justify-content: space-evenly;
+  margin-left: 25%;
+}
+
+.f1{
+  margin-left: auto;
 }

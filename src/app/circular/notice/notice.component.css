@@ -18,4 +18,9 @@
 #container {
   display: flex;
   justify-content: space-between;
+  margin-left: 25%;
+}
+
+.f1{
+  margin-left: auto;
 }
