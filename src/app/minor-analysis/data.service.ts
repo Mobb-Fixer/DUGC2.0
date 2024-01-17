@@ -12,7 +12,7 @@ export class DataService {
   in_exam: any;
   URI = `${environment.API_URL}`;
 
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient) { }
 
   getAnalysis() {
     return this._http.get(`${this.URI}/analysis`, { withCredentials: true });
@@ -104,6 +104,17 @@ export class DataService {
     });
   }
 
+
+  uploadFileInE(fileToUpload: File) {
+    console.log('on service');
+    console.log(fileToUpload);
+    let fd = new FormData();
+    fd.append('filename', fileToUpload, fileToUpload.name);
+    return this._http.post(`${this.URI}/upload_InE`, fd, {
+      headers: this.setFileHeader(),
+      withCredentials: true,
+    });
+  }
   uploadEmail11(fileToUpload: File) {
     console.log('on service');
     console.log(fileToUpload);
@@ -125,8 +136,18 @@ export class DataService {
     });
   }
 
+  uploadlist1(data: any) {
+    const { sem, filename } = data;
+    console.log('Making a get request', data);
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    return this._http.post(`${this.URI}/uploadTheory`, data, {
+      withCredentials: true,
+    });
+  }
+
   uploadEmail(data: any) {
-    const { email,message,filename } = data;
+    const { email, message, filename } = data;
     console.log('Making a get request', data);
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'multipart/form-data');
@@ -134,6 +155,7 @@ export class DataService {
   }
 
   getTheoryBySem(sem: number): Observable<any> {
+    console.log("Hi in dataservice");
     return this._http.get(`${this.URI}/getTheoryBySem/${sem}`);
   }
 }

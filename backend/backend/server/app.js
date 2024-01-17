@@ -7,7 +7,7 @@ var jwt = require("jsonwebtoken");
 var { config } = require("dotenv");
 
 var cors = require("cors");
-const nodemailer=require('nodemailer');
+const nodemailer = require('nodemailer');
 
 var mongoose = require("mongoose");
 const { errorMiddleware } = require("./middlewares/errorHandler.js");
@@ -112,7 +112,7 @@ const getCourseName = function (code, course_file) {
 
 var storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "./spreadsheets/new");
+    cb(null, "./spreadsheets/new/2023-24/Odd");
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);
@@ -159,7 +159,7 @@ app.get("/filemanager/browse%5C:addr", (req, res) => {
   }
 });
 
-app.post("/upload_sheets",securityHandler.isFacultyCord ,(req, res) => {
+app.post("/upload_sheets", securityHandler.isFacultyCord, (req, res) => {
   let this_year = "2023-24";
   const { academic_year, sem_type, semester, course, exam, section, filename } =
     req.body;
@@ -180,19 +180,12 @@ app.post("/upload_sheets",securityHandler.isFacultyCord ,(req, res) => {
   console.log(file_name);
   try {
     result = excelToJson({
-      sourceFile: path.join(__dirname, "spreadsheets/new", file_name),
+      sourceFile: path.join(__dirname, "spreadsheets/new/2023-24/Odd", file_name),
     });
   } catch (err) {
     console.log("File not found!");
   }
   let result_keys = Object.keys(result);
-  console.log(
-    "*************************************************************************************"
-  );
-  console.log(result);
-  console.log(
-    "***************************************************************************************"
-  );
   read_result.Average = parseFloat(result[result_keys[0]][0]["C"])
     .toFixed(2)
     .toString();
@@ -232,10 +225,24 @@ app.post("/upload_sheets",securityHandler.isFacultyCord ,(req, res) => {
     read_result,
   });
 });
-
+//------------------------------------------------------------------------------------------------------------------
 const Theory = require("./models/theories.js"); // Import the User model here
 const xlsx = require("xlsx");
-var uploadi = multer({ storage: storage });
+
+var Instorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./spreadsheets/ineligibility students sheets");
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+var uploadi = multer({ storage: Instorage });
+app.post(
+  "/upload_InE",
+  uploadi.single("filename"),
+  uploadFiles
+);
 
 app.post("/uploadTheory", async (req, res) => {
   const { sem, filename } = req.body;
@@ -253,9 +260,8 @@ app.post("/uploadTheory", async (req, res) => {
   let result1 = {};
   try {
     result1 = excelToJson({
-      sourceFile: path.join(__dirname, "spreadsheets/new", file_name),
+      sourceFile: path.join(__dirname, "spreadsheets/ineligibility students sheets", file_name),
     });
-    console.log(result1);
   } catch (err) {
     console.log("File not found!");
     return res.status(400).json({ error: "File not found." });
@@ -310,6 +316,182 @@ function isValidNumber(value) {
   return !isNaN(value) && value !== null && value !== undefined;
 }
 
+
+app.get('/getTheoryBySem/:sem', async (req, res) => {
+  try {
+    const sem = parseInt(req.params.sem);
+
+    if (isNaN(sem)) {
+      return res.status(400).json({ error: 'Invalid Sem parameter. Sem must be a number.' });
+    }
+
+    // Retrieve details from the database based on 'Sem'
+    const details = await Theory.find({ Sem: sem });
+
+    if (details.length === 0) {
+      return res.status(404).json({ message: 'No details found for the specified Sem.' });
+    }
+
+    // Organize details into a structured JSON format
+    const resultJSON = {};
+
+    // Iterate through each student's details
+    details.forEach(student => {
+      const studentDetails = {
+        Name: student.Name,
+        USN: student.USN,
+      };
+
+      // Filter courses based on the specified semester for the current student
+      const studentSemesterCourses = details.filter(course => course.USN === student.USN && course.Sem === sem);
+
+      // Initialize CIE and Attendance to '--' for all courses in the specified semester
+      // studentSemesterCourses.forEach(course => {
+      //   const courseKey = course${course.Sl_no};
+      //   studentDetails[courseKey] = {
+      //     CourseId: course.CourseId,
+      //     CourseName: course.CourseName,
+      //     CIE: '--',
+      //     Attendance: '--',
+      //   };
+      // });
+      studentSemesterCourses.forEach(course => {
+        // const courseKey = course${course.Sl_no};
+        const course1 = course.CourseId;
+        studentDetails[course1] = {
+          // CourseId: course.CourseId,
+          CourseName: course.CourseName,
+          CIE: '--',
+          Attendance: '--',
+        };
+      });
+
+      // Update CIE and Attendance if the student is connected to a course in the specified semester
+      studentSemesterCourses.forEach(course => {
+        // const courseKey = course${course.Sl_no};
+        const course1 = course.CourseId;
+        studentDetails[course1] = {
+          // CourseId: course.CourseId,
+          CourseName: course.CourseName,
+          CIE: course.CIE !== undefined ? course.CIE.toString() : '--',
+          Attendance: course.Attendance !== undefined ? course.Attendance.toString() : '--',
+        };
+      });
+
+      // Add the student's details to the resultJSON
+      resultJSON[student.USN] = studentDetails;
+    });
+
+    console.log(resultJSON);
+    res.status(200).json({ result: resultJSON });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+const lab = require("./models/lab.js");
+
+
+app.post("/uploadLab", async (req, res) => {
+  const { sem, filename } = req.body;
+  console.log("Result => ", req.body);
+
+  if (!filename) {
+    console.log("Filename is not provided in the request.");
+    return res
+      .status(400)
+      .json({ error: "Filename is required in the request body." });
+  }
+  let f = filename.split("\\");
+  let file_name = f[f.length - 1];
+
+  let result1 = {};
+  try {
+    result1 = excelToJson({
+      sourceFile: path.join(__dirname, "spreadsheets/new", file_name),
+    });
+    console.log(result1);
+  } catch (err) {
+    console.log("File not found!");
+    return res.status(400).json({ error: "File not found." });
+  }
+
+  let resultSheet1 = result1.Sheet1;
+  // Filter out entries where Sl_no is null
+  resultSheet1 = resultSheet1.filter((data) => isValidNumber(data.A));
+
+  // Map the data to the desired format for MongoDB insertion
+  let userData = resultSheet1.map((data) => ({
+    Sl_no: parseInt(data.A),
+    USN: data.B,
+    Name: data.C,
+    Sem: isValidNumber(data.D) ? parseInt(data.D) : null,
+    div: data.E,
+    CourseId: data.F,
+    CourseName: data.G,
+    CIE: isValidNumber(data.H) ? parseInt(data.H) : null,
+    Attendance: isValidNumber(data.I) ? parseInt(data.I) : null,
+  }));
+
+  try {
+    // Insert the transformed data into MongoDB
+    const result2 = await lab.create(userData);
+    console.log("Data inserted into MongoDB!", result2);
+
+    // You can also write the data to a JSON file if needed
+    fs.writeFile(
+      "./data_files/ineligible.json",
+      JSON.stringify(userData),
+      (err) => {
+        if (err) {
+          console.error("Error writing file:", err);
+        } else {
+          console.log("Done writing JSON file!");
+        }
+      }
+    );
+
+    res.json({
+      sem,
+      filename: file_name,
+    });
+  } catch (err) {
+    console.error("Error inserting data into MongoDB:", err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Endpoint to retrieve data based on semester
 app.get("/getTheoryBySem/:sem", async (req, res) => {
   console.log("HIIII in app");
@@ -333,7 +515,165 @@ app.get("/getTheoryBySem/:sem", async (req, res) => {
 });
 
 
-// const nodemailer = require('nodemailer');
+
+
+
+
+
+app.get("/getLabBySem/:sem", async (req, res) => {
+  console.log("HIIII in app");
+  try {
+    const sem = parseInt(req.params.sem);
+
+    if (isNaN(sem)) {
+      return res
+        .status(400)
+        .json({ error: "Invalid semester value provided." });
+    }
+
+    // Query MongoDB to find data based on the provided semester
+    const labData = await lab.find({ Sem: sem });
+    console.log(labData);
+    res.json(labData);
+  } catch (err) {
+    console.error("Error retrieving data from MongoDB:", err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+//------------------------------------------------------------------------------------------------------------
+
+//--------------------------------Download Routes for Circular------------------------------------------------
+
+app.use(express.static('circularDocuments'))
+app.get('/downloadMakeMinorCircular', (req, res, next) => {
+  res.download("./circularDocuments/MakeMinorTeacher.doc", function (err) {
+    if (err) {
+      next(err);
+    }
+  })
+});
+
+
+app.get('/noticeMakeupMinor', (req, res, next) => {
+  res.download("./circularDocuments/notice.doc", function (err) {
+    if (err) {
+      next(err);
+    }
+  })
+});
+
+app.get('/downloadMOM', (req, res, next) => {
+  res.download("./circularDocuments/MoM_CS.doc", function (err) {
+    if (err) {
+      next(err);
+    }
+  })
+});
+
+
+
+//-----------------------------------------------------------------------------------------------------------------
+// const email1 = 'ktestkle@gmail.com';
+// const password1 = 'uhebyppldnazdhsz';
+
+// const transporter1 = nodemailer.createTransport({
+//   service: 'gmail',
+//   auth: {
+//     user: email1,
+//     pass: password1,
+//   },
+// });
+
+
+// var storageEmail = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "./emailFile");
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, file.originalname);
+//   },
+// });
+
+// const uploader1 = multer({ storage: storageEmail });
+
+// app.post(
+//   "/upload_Email",
+//   uploader1.single("filename"),
+//   uploadFiles
+// );
+// app.use(express.json());
+
+// app.post('/uploadEmail', uploader1.single('filename'), async (req, res) => {
+
+//   console.log(req.file);
+//   const filename = "download (4).pdf";
+//   // const filename = req.body.filename;
+//   const filePath = path.join(__dirname, 'emailFile', filename);
+//   const text = req.body.message;
+
+//   // Read the file from the folder
+//   const fileContent = fs.readFileSync(filePath);
+
+//   // Assuming 'email' is defined somewhere in your code
+//   const mailOptions = {
+//     from: email1,
+//     text,
+//     attachments: [
+//       {
+//         filename: filename,
+//         content: fileContent,
+//       },
+//     ],
+//   };
+
+//   const sendEmail = async (options) => {
+//     try {
+//       await transporter.sendMail(options);
+//       console.log(`Email sent successfully to ${options.to}`);
+//     } catch (error) {
+//       console.error(`Error sending email to ${options.to}:`, error.message);
+//     }
+//   };
+
+//   // Function to generate email addresses based on a pattern
+//   const generateEmails = (prefix, start, end, suffix) => {
+//     const emails = [];
+//     for (let i = start; i <= end; i++) {
+//       const paddedIndex = i.toString().padStart(3, '0');
+//       const email = `${prefix}${paddedIndex}${suffix}`;
+//       emails.push(email);
+//     }
+//     return emails;
+//   };
+
+//   // Replace '01fe21bcs' and 'example.kletech.ac.in' with your desired pattern
+//   const prefix = '01fe21bcs';
+//   const suffix = '@kletech.ac.in';
+
+//   // Specify the range of email indices you want to send
+//   const startIdx = 284;
+//   const endIdx = 288; // For testing, reduce the range to a smaller number
+
+//   // Generate the list of target email addresses
+//   const targetEmails = generateEmails(prefix, startIdx, endIdx, suffix);
+
+//   // Function to introduce a delay
+//   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+//   // Send emails to each target address with a delay
+//   const sendEmailsSequentially = async () => {
+//     for (const to of targetEmails) {
+//       mailOptions.to = to;
+
+//       await sendEmail(mailOptions);
+//       await delay(200);
+//     }
+//   };
+
+//   // Start sending emails
+//   sendEmailsSequentially();
+// });
+
 
 const email1 = 'ktestkle@gmail.com';
 const password1 = 'uhebyppldnazdhsz';
@@ -345,17 +685,7 @@ const transporter1 = nodemailer.createTransport({
     pass: password1,
   },
 });
-
-
- var storageEmail = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "./emailFile");
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
-  },
-});
-
+const storageEmail = multer.memoryStorage();
 const uploader1 = multer({ storage: storageEmail });
 
 app.post(
@@ -366,79 +696,87 @@ app.post(
 app.use(express.json());
 
 app.post('/uploadEmail', uploader1.single('filename'), async (req, res) => {
-
-  console.log(req.file);
-  const filename = "download (4).pdf";
-  // const filename = req.body.filename;
-  const filePath = path.join(__dirname, 'emailFile', filename);
+  // console.log(req)
+  // console.log("filename",req.file);
+  // const filename = req.file;
+  const filename = req.body.filename;
+  // const filePath = path.join(__dirname, 'emailFile', filename);
+  console.log("Hii")
+  // console.log(__dirname);
+  // const emailFilePath =  path.join(__dirname, 'emailFile');
+  // console.log(emailFilePath)
+  // const filePath = path.join(emailFilePath, filename);
+  // console.log("filePath",filePath);
   const text = req.body.message;
+  const subject = req.body.subject;
+
 
   // Read the file from the folder
-  const fileContent = fs.readFileSync(filePath);
+  // const fileContent = fs.readFileSync(filePath);
 
   // Assuming 'email' is defined somewhere in your code
   const mailOptions = {
     from: email1,
+    subject,
     text,
     attachments: [
       {
-        filename: filename,
-        content: fileContent,
+        filename: filename.originalname,
+        content: filename.buffer,
       },
     ],
   };
 
- const sendEmail = async (options) => {
-  try {
-    await transporter.sendMail(options);
-    console.log(`Email sent successfully to ${options.to}`);
-  } catch (error) {
-    console.error(`Error sending email to ${options.to}:`, error.message);
-  }
-};
+  const sendEmail = async (options) => {
+    try {
+      await transporter1.sendMail(options);
+      console.log(`Email sent successfully to ${options.to}`);
+    } catch (error) {
+      console.error(`Error sending email to ${options.to}:, error.message`);
+    }
+  };
 
-// Function to generate email addresses based on a pattern
-const generateEmails = (prefix, start, end, suffix) => {
-  const emails = [];
-  for (let i = start; i <= end; i++) {
-    const paddedIndex = i.toString().padStart(3, '0');
-    const email = `${prefix}${paddedIndex}${suffix}`;
-    emails.push(email);
-  }
-  return emails;
-};
+  // Function to generate email addresses based on a pattern
+  const generateEmails = (prefix, start, end, suffix) => {
+    const emails = [];
+    for (let i = start; i <= end; i++) {
+      const paddedIndex = i.toString().padStart(3, '0');
+      const email = `${prefix}${paddedIndex}${suffix}`;
+      emails.push(email);
+    }
+    return emails;
+  };
 
-// Replace '01fe21bcs' and 'example.kletech.ac.in' with your desired pattern
-const prefix = '01fe21bcs';
-const suffix = '@kletech.ac.in';
+  // Replace '01fe21bcs' and 'example.kletech.ac.in' with your desired pattern
+  const prefix = '01fe21bcs';
+  const suffix = '@kletech.ac.in';
 
-// Specify the range of email indices you want to send
-const startIdx = 284;
-const endIdx = 288; // For testing, reduce the range to a smaller number
+  // Specify the range of email indices you want to send
+  const startIdx = 313;
+  const endIdx = 315; // For testing, reduce the range to a smaller number
 
-// Generate the list of target email addresses
-const targetEmails = generateEmails(prefix, startIdx, endIdx, suffix);
+  // Generate the list of target email addresses
+  const targetEmails = generateEmails(prefix, startIdx, endIdx, suffix);
 
-// Function to introduce a delay
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  // Function to introduce a delay
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-// Send emails to each target address with a delay
-const sendEmailsSequentially = async () => {
-  for (const to of targetEmails) {
-    mailOptions.to = to;
+  // Send emails to each target address with a delay
+  const sendEmailsSequentially = async () => {
+    for (const to of targetEmails) {
+      mailOptions.to = to;
 
-    await sendEmail(mailOptions);
-    await delay(200); 
-  }
-};
+      await sendEmail(mailOptions);
+      await delay(200);
+    }
+  };
 
-// Start sending emails
-sendEmailsSequentially();
+  // Start sending emails
+  sendEmailsSequentially();
 });
 
 
-
-app.post("/upload_multiple_sheets",securityHandler.isFacultyCord, (req, res) => {
+app.post("/upload_multiple_sheets", securityHandler.isFacultyCord, (req, res) => {
   let this_year = "2023-24";
   const { academic_year, sem_type, semester, course, exam, filename } =
     req.body;
@@ -523,7 +861,7 @@ app.post("/upload_multiple_sheets",securityHandler.isFacultyCord, (req, res) => 
   });
 });
 
-app.get("/dugc_chairman",securityHandler.isDugcChairman ,(req, res) => {
+app.get("/dugc_chairman", securityHandler.isDugcChairman, (req, res) => {
   console.log("On DUGC chairman page.");
   res.json({ data_file });
 });
@@ -531,33 +869,33 @@ app.get("/dugc_chairman",securityHandler.isDugcChairman ,(req, res) => {
 
 app.use(express.static('userManual'));
 
-app.use(function(err,req,res,next){
+app.use(function (err, req, res, next) {
   res.status(err.status).send(err);
 })
 
-app.get('/downloadfile',(req,res,next)=>{
-   res.download("./userManual/DUGC_User_mannual.docx",function(err){
-    if(err){
+app.get('/downloadfile', (req, res, next) => {
+  res.download("./userManual/DUGC_User_mannual.docx", function (err) {
+    if (err) {
       next(err);
     }
-   })
+  })
 });
 
-app.post('/send-message',(req,res)=>{
+app.post('/send-message', (req, res) => {
   console.log("hii");
-  const {name,email,message}=req.body;
-  
+  const { name, email, message } = req.body;
+
   console.log(req.body);
-  
+
 
   //email,subject,message;
-  
+
   //const html = <h1>{{message}}</h1>;
-  
-  
-  
-  
-  
+
+
+
+
+
   async function main() {
     // Create a transporter with Gmail SMTP settings
     const transporter = nodemailer.createTransport({
@@ -567,19 +905,19 @@ app.post('/send-message',(req,res)=>{
         pass: 'xhpiiamkxmarjbhu',
       },
     });
-  
+
     const info = await transporter.sendMail({
-      from:email,
+      from: email,
       to: "dugckle@gmail.com", // Replace with the recipient's email address
       subject: 'Testing 123',
       text: message,
     });
-  
+
     console.log('Message sent: ' + info.messageId);
   }
-  
+
   main().catch((e) => console.log(e));
-  
+
 
 });
 
@@ -601,11 +939,11 @@ const uploader = multer({ storage: storager });
 
 
 
-app.post('/circular', uploader.single('file'),async (req, res) => {
+app.post('/circular', uploader.single('file'), async (req, res) => {
   const file = req.file;
   console.log("hiii");
-  const subject=req.body.subject;
-  const text=req.body.text;
+  const subject = req.body.subject;
+  const text = req.body.text;
   const mailOptions = {
     from: email,
     subject,
@@ -618,55 +956,55 @@ app.post('/circular', uploader.single('file'),async (req, res) => {
     ],
   };
 
- const sendEmail = async (options) => {
-  try {
-    await transporter.sendMail(options);
-    console.log(`Email sent successfully to ${options.to}`);
-  } catch (error) {
-    console.error(`Error sending email to ${options.to}:, error.message`);
-  }
-};
+  const sendEmail = async (options) => {
+    try {
+      await transporter.sendMail(options);
+      console.log(`Email sent successfully to ${options.to}`);
+    } catch (error) {
+      console.error(`Error sending email to ${options.to}:, error.message`);
+    }
+  };
 
-// Function to generate email addresses based on a pattern
-const generateEmails = (prefix, start, end, suffix) => {
-  const emails = [];
-  for (let i = start; i <= end; i++) {
-    const paddedIndex = i.toString().padStart(3, '0');
-    const email = `${prefix}${paddedIndex}${suffix}`;
-    emails.push(email);
-  }
-  return emails;
-};
+  // Function to generate email addresses based on a pattern
+  const generateEmails = (prefix, start, end, suffix) => {
+    const emails = [];
+    for (let i = start; i <= end; i++) {
+      const paddedIndex = i.toString().padStart(3, '0');
+      const email = `${prefix}${paddedIndex}${suffix}`;
+      emails.push(email);
+    }
+    return emails;
+  };
 
-// Replace '01fe21bcs' and 'example.kletech.ac.in' with your desired pattern
-const prefix = '01fe21bcs';
-const suffix = '@kletech.ac.in';
+  // Replace '01fe21bcs' and 'example.kletech.ac.in' with your desired pattern
+  const prefix = '01fe21bci';
+  const suffix = '@kletech.ac.in';
 
-// Specify the range of email indices you want to send
-const startIdx = 230;
-const endIdx = 235; // For testing, reduce the range to a smaller number
+  // Specify the range of email indices you want to send
+  const startIdx = 0;
+  const endIdx = 70; // For testing, reduce the range to a smaller number
 
-// Generate the list of target email addresses
-const targetEmails = generateEmails(prefix, startIdx, endIdx, suffix);
+  // Generate the list of target email addresses
+  const targetEmails = generateEmails(prefix, startIdx, endIdx, suffix);
 
-// Function to introduce a delay
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  // Function to introduce a delay
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-// Send emails to each target address with a delay
-const sendEmailsSequentially = async () => {
-  for (const to of targetEmails) {
-    mailOptions.to = to;
+  // Send emails to each target address with a delay
+  const sendEmailsSequentially = async () => {
+    for (const to of targetEmails) {
+      mailOptions.to = to;
 
-    await sendEmail(mailOptions);
-    await delay(200); 
-  }
-};
+      await sendEmail(mailOptions);
+      await delay(200);
+    }
+  };
 
-// Start sending emails
-sendEmailsSequentially();
+  // Start sending emails
+  sendEmailsSequentially();
 });
 
-app.get("/create_course",securityHandler.isDugcChairman , (req, res) => {
+app.get("/create_course", securityHandler.isDugcChairman, (req, res) => {
   let { semester, course_code, course_name, cred1, cred2, cred3 } = req.query;
 
   let new_data = data_file;
@@ -766,7 +1104,7 @@ app.get("/create_course",securityHandler.isDugcChairman , (req, res) => {
   res.json({ course_code, course_name, semester });
 });
 
-app.get("/coordinator",securityHandler.isDugcChairman , (req, res) => {
+app.get("/coordinator", securityHandler.isDugcChairman, (req, res) => {
   console.log("On Coordinator page.");
   res.json({ data_file, course_file });
 });

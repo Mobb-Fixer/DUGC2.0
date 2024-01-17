@@ -1,23 +1,27 @@
 <main class="container">
   <h1 class="main-title">Application for Makeup Minor</h1>
-  <br>
-  <div class="stud-details">
-    <form >
+  <div class="stud-details"><br>
+    <form>
       <table>
         <tr>
-          <td><label for="name">Name:</label></td>
-          <td>
-            <input [(ngModel)]="studentName"  type="text" placeholder="Enter Name" name="name" id="name" />
-
+          <td><label style="font-size: medium;" for="name">Name:</label></td>
+          <td id="nm">
+            <div style="font-size: 15px;">
+              <input [(ngModel)]="studentName" type="text" placeholder="Enter Name" name="name" id="name"
+                style="height: 42px;">
+            </div>
           </td>
         </tr>
         <br>
         <tr>
-          <td><label for="sem">Sem:</label></td>
+          <td><label style="font-size: medium;" for="sem">Sem:</label></td>
           <td>
             <!-- <select [(ngModel)]="selectedSem" name="sem" id="sem" (change)="getSemCourses()"> -->
-            <select #semester (change)="getSemCourses(semester.value)">
+            <select style="padding: 0px; height: 30px; width: 200px;" #semester
+              (change)="getSemCourses(semester.value)">
+
               <option default>Choose semester</option>
+
               <option value="3">3</option>
               <option value="4">4</option>
               <option value="5">5</option>
@@ -29,23 +33,41 @@
         </tr>
         <br>
         <tr>
-          <td><label for="srn">SRN:</label></td>
+          <td><label style="font-size: medium;" for="srn">SRN:</label></td>
           <td>
-            <input [(ngModel)]="srn" type="text" placeholder="SRN" name="srn" id="srn" />
+            <input style="height: 30px; font-size: 15px; width: 200px;" [(ngModel)]="srn" type="text" placeholder="SRN"
+              name="srn" id="n1" />
           </td>
         </tr>
         <br>
         <tr>
-          <td><label for="rno">Roll No:</label></td>
+          <td><label style="font-size: medium;" for="rno">Roll No:</label></td>
           <td>
-            <input [(ngModel)]="rno" type="text" placeholder="Roll no" name="rno" id="rno" />
+            <input style="height: 30px; font-size: 15px;width: 200px; " [(ngModel)]="rno" type="text"
+              placeholder="Roll no" name="rno" id="n1" style="height: 30px; width: 200px;" />
           </td>
         </tr>
         <br>
-        <tr>
+        <!-- <tr>
           <td><label for="div">Division:</label></td>
           <td>
-            <select [(ngModel)]="div" name="div" id="div">
+            <select [(ngModel)]="div" name="div" id="div" id="n1">
+              <option disabled value="" [selected]=true></option>
+              <option value="a">A</option>
+              <option value="b">B</option>
+              <option value="c">C</option>
+              <option value="d">D</option>
+              <option value="e">E</option>
+            </select>
+          </td>
+        </tr> -->
+
+        <tr>
+          <td><label for="div" style="font-size: medium;">Division:</label></td>
+
+          <td>
+            <select style="padding: 0px; height: 30px; width: 50px;" [(ngModel)]="div" name="div" id="div">
+              <option disabled value="" [selected]=true></option>
               <option value="a">A</option>
               <option value="b">B</option>
               <option value="c">C</option>
@@ -58,20 +80,20 @@
     </form>
     <br>
     <br>
-    <h2 align="center">Select the Courses you want apply for Makeup</h2>
+    <h2 style="margin-left: 40%; font-size: 25px; ">Select the Courses you want apply for Makeup</h2>
     <br>
-    <div style="padding: 100px;">
+    <div>
       <div class="table">
-        <div *ngFor="let course of selectedSemCourses" style="padding:10px ;">
+        <div *ngFor="let course of selectedSemCourses" style="padding: 10px;">
           {{course.name}} <br>
           {{course.code}} <br>
-          {{course.credits}} credits <br>
-          <input type="checkbox" (change)="selectedCourse($event,course)">
+          credits-{{course.credits}}
+          <input type="checkbox" style="height: 25px; width: 25px;" (change)="selectedCourse($event,course)">
         </div>
-        
+
       </div>
       <br>
-        <!-- <td>
+      <!-- <td>
           System software <br>
           15cs51<br>
           3 credits <br>
@@ -87,9 +109,8 @@
           <input type="text" placeholder="ISA 1 "> <br>
           <input type="text" placeholder="ISA 2">
         </td> -->
-      </div>
     </div>
-    <br>
+  </div>
 
   <!-- </div> -->
 
@@ -107,14 +128,14 @@
       <input type="file" name="filename" id="filename" accept=".xls,.xlsx">
     </div>
   </div> -->
-  <div style="padding-left: 150px; font-size: 20px;">Reason:</div>
+  <div style="padding-left: 100px; font-size: 20px; margin-left: 30%;">Reason:</div>
   <br>
   <div style="text-align: center;">
-    <div id="omas"> <textarea [(ngModel)]="reason" class="momsa" name="" id="" cols="5" rows="10"></textarea> </div>
+    <div id="omas" style="margin-left: 30%;"> <textarea [(ngModel)]="reason" class="momsa" name="" id="" cols="5"
+        rows="10"></textarea> </div>
   </div>
-  <br> <br>
   <br>
-  <div style="text-align: center;">
+  <div style="text-align: center; margin-left: 30%;">
     <button class="kop" (click)="submitDetails()">Submit</button>
   </div>
   <br>

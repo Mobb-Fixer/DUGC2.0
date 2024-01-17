@@ -1,52 +1,94 @@
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
 
-main{
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    /* width: max-content; */
-    /* align-items: center; */
-  }
-  
-  select{
-    width: fit-content;
-    margin: 0 auto;
-    box-sizing: border-box;
-    border: 2px solid rgb(185, 33, 33);
-    border-radius: 4px;
-    background-color: #f8f8f8;
-    padding: .4em;
-  }
-  
-  @media print {
-    .nav-options {
-      visibility: collapse;
-      display: none;
-    }
-  
-    select{
-      visibility: collapse;
-      display: none;
-    }
-  
-    button {
-      display: none;
-    }
-  
-    main{
-      margin-top: -80px;
-    }
-  }
-  
-  
-  th{
-    text-align: center;
+main {
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  align-items: center;
+  margin-left: auto;
+  /* Auto margin on the left side */
+  margin-right: 20%;
+  /* 20% margin on the right side */
+}
+
+select {
+  width: fit-content;
+  text-align: center;
+  margin-top: 20px;
+  box-sizing: border-box;
+  border: 2px solid rgb(185, 33, 33);
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  padding: 0.4em;
+}
+
+@media print {
+
+  .nav-options,
+  select,
+  button {
+    visibility: collapse;
+    display: none;
   }
 
-  button
-  {
-     color: rgb(253, 254, 255);
-     font-size: 100%;
-     padding: 14px 28px;
-     background-color: rgb(195, 53, 53);
-
+  main {
+    margin-top: -80px;
   }
+}
+
+th,
+td {
+  border: 2px solid #060000;
+  /* Set the border thickness */
+  padding: 8px;
+  text-align: left;
+}
+
+
+button {
+  color: rgb(253, 254, 255);
+  font-size: 100%;
+  padding: 14px 28px;
+  background-color: rgb(195, 53, 53);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: medium;
+  border-radius: 5px;
+}
+
+
+.kop {
+  background-color: rgba(255, 255, 255, 0.8);
+  /* Green */
+  border-color: #c62128;
+  color: black;
+  border-radius: 8px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  /* font-size: 17px;*/
+  font-size: 1.2em;
+  height: 60px;
+  width: 80px;
+}
+
+.kop:hover {
+  background-color: #c62128;
+  border-color: #c62128;
+  /* font-size: 17px; */
+  font-size: 1.2em;
+
+  height: 50px;
+  width: 80px;
+  color: #ffffff;
+  transition: background-color 0.5s linear;
+}

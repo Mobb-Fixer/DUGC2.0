@@ -1,4 +1,4 @@
-<div class="nav-options" >
+<div class="nav-options">
   <div class="nav-op" routerLink="/Minor" [routerLinkActive]="['selected-option']">
     ISA Analysis</div>
   <div class="nav-op" routerLink="/Endsem" [routerLinkActive]="['selected-option']">
@@ -15,19 +15,21 @@
     Makeup Minor</div>
   <!-- <div class="nav-op" routerLink="/add-user" [routerLinkActive]="['selected-option']">
     Add User</div> -->
-    <div class="nav-op" routerLink="/add-user" [routerLinkActive]="['selected-option']" *ngIf="userType =='DUGCChairman'">
-        Add User</div>
+  <div class="nav-op" routerLink="/add-user" [routerLinkActive]="['selected-option']" *ngIf="userType =='DUGCChairman'">
+      Add User</div>
 </div>
 
 <div class="nav-container">
 
   <div class="nav-options4">
-    <div class="nav-op4"  [routerLink]="['/makeup/add-student']">Apply for makeup</div>
+    <div class="nav-op4" [routerLink]="['/makeup/add-student']">Apply makeup</div>
     <div class="nav-op4" [routerLink]="['/makeup/edit-student']">Approve student</div>
     <div class="nav-op4" [routerLink]="['/makeup/list-student']">Student report</div>
   </div>
 
+
 </div>
+
 <!-- <app-course-withdrawal></app-course-withdrawal>
 <app-course-widthdrawal-report></app-course-widthdrawal-report>
 <app-course-withdrawal-application></app-course-withdrawal-application> -->

@@ -8,7 +8,6 @@
   table-layout: auto;
   margin-left: 80px;
   margin-right: 80px;
-
 }
 
 
@@ -34,9 +33,10 @@
 .pop th {
   padding-top: 12px;
   padding-bottom: 12px;
-  text-align: left;
+  text-align: center;
   background-color: #C62128;
   color: white;
+  size: 12px;
 }
 
 .pop button {

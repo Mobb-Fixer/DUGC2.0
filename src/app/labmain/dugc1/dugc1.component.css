@@ -177,7 +177,7 @@
     margin-top: 1em;
   }
   
-  #sem_type,#exam{
+  #sem_type,#exam,#semester{
     width: 6.5vw;
     border-color: #C62128;
   }

@@ -1,5 +1,4 @@
 <main>
-  <!--img src="assets/kletech_logo.png" alt="KLE Tech logo" class="nav-logo"-->
   <select align="center" #semester (change)="getSemReport(semester.value)">
     <option [defaultSelected]="true" disabled>Choose semester</option>
     <option value="3">3</option>
@@ -10,46 +9,13 @@
     <option value="8">8</option>
   </select>
 
-  <h1 class="main-title-main">Course Withdrawal List of {{ selectedSem }} Semester .</h1>
-  <!-- <table border="1" class="pop">
-    <tr>
-      <th>Sl no.</th>
-      <th>USN</th>
-      <th>Name</th>
-      <th>Sem</th>
-      <th>Course</th>
-      <th>Attendance</th>
-      <th>Grade</th>
-    </tr>
-    {{resetSno()}}
-    <tbody *ngFor="let student of students; let i = index">
-      <tr *ngIf="student.status =='approved' && student.sem == selectedSem">
-        <td>{{sno}}</td>
-        <td>{{student.srn}}</td>
-        <td>{{student.name}}</td>
-        <td>{{student.sem}}</td>
-        <td>
-          <b *ngFor="let course of student.selectedCourseToWithdraw">
-            {{course.name}} <br>
-          </b>
-        </td>
-        <td>
-          <b *ngFor="let course of student.selectedCourseToWithdraw">
-            {{course.attendance}} <br>
-          </b>
-        </td>
-        <td>W</td>
-        {{incrementSno()}}
-      </tr>
-    </tbody>
-
-  </table> -->
+  <h1 class="main-title-main">Course Withdrawal List of {{ selectedSem }} Semester.</h1>
 
   <table class="pop">
     <tr>
       <th rowSpan="2">Name</th>
       <th rowSpan="2">USN</th>
-      <th colSpan="2" *ngFor="let code of courseCode">
+      <th *ngFor="let code of courseCode" colspan="2">
         {{ code }}
       </th>
     </tr>
@@ -59,22 +25,18 @@
         <th>CEI</th>
       </ng-container>
     </tr>
-    <ng-container *ngFor="let student of students; let i = index">
+    <ng-container *ngFor="let student of studentsOfSelectedSem; let i = index">
       <tr *ngIf="student.status == 'approved' && student.sem == selectedSem">
         <td>{{ student.name }}</td>
         <td>{{ student.srn }}</td>
-        <ng-container *ngFor="let course of student.selectedCourseToWithdraw">
-          {{getPosition(course)}}
-          <ng-container *ngFor='let in of counter(startSpaces) ;let i = index'>
-            <td>-</td>
-            <td>-</td>
+        <ng-container *ngFor="let code of courseCode">
+          <ng-container *ngIf="hasSelectedCourse(student, code); else notChosen">
+            <td>{{ getCourseDetails(student, code).att }}</td>
+            <td>{{ getCourseDetails(student, code).cie }}</td>
           </ng-container>
-          <td>{{course.attendance}}</td>
-          <td>{{course.cie}}</td>
-          <ng-container *ngFor='let in of counter(trailSpaces) ;let i = index'>
-            <td>-</td>
-            <td>-</td>
-          </ng-container>
+          <ng-template #notChosen>
+            <td colspan="2">-</td>
+          </ng-template>
         </ng-container>
       </tr>
     </ng-container>
@@ -83,22 +45,22 @@
   <br />
   <br />
   <br />
+
   <table class="pop">
     <tr>
       <th>Course name</th>
       <th>Code</th>
     </tr>
     <tr *ngFor="let code of courseCode; let i=index">
-      <td>{{courseName[i]}}</td>
-      <td>{{courseCode[i]}}</td>
-
+      <td>{{ courseName[i] }}</td>
+      <td>{{ code }}</td>
     </tr>
   </table>
 
+  <br />
+  <br />
+  <br />
 
-  <br />
-  <br />
-  <br />
   <div style="text-align: center">
     <button class="kop" (click)="printReport()">Print</button>
   </div>
