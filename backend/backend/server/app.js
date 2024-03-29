@@ -126,7 +126,7 @@ function uploadFiles(req, res) {
     return res.status(400).json({ error: "No file uploaded." });
   }
 
-  console.log(req.body);
+  console.log(String(req.body).replace(/\n|\r/g, ""));
   console.log(req.file);
   res.json({ message: "Successfully uploaded files" });
 }
